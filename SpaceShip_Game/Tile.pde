@@ -14,7 +14,7 @@ class Tile {
     
   }
   
-  void draw() {
+  void display() {
     rectMode(CENTER);
     fill(c);
     rect(x, y, dx, dy, 3);
