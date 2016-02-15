@@ -1,5 +1,6 @@
 class GameSettings {
 
+  //Ship configuration
   float shipHealth = 300;
   float shipHealthCurrent = 300;
 
