@@ -1,3 +1,4 @@
+
 class UI {
   
   float x, y;
@@ -14,16 +15,21 @@ class UI {
   }
   
   void draw() {
-    
     fill(c);
     text(title, x, y);
    
   }
   
   void bar(float barX, float barY, float barWidth, float barHeight, color barColor) {
+    rectMode(CORNER);
     stroke(barColor);
     fill(barColor);
     rect(barX, barY, barWidth, barHeight);
   }
   
+  void modal(float modalX, float modalY, float modalWidth, float modalHeight, color modalColor) {
+    rectMode(CENTER);
+    fill(modalColor);
+    rect(modalX, modalY, modalWidth, modalHeight);
+  }
 }

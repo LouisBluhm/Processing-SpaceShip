@@ -16,6 +16,7 @@ class Tile {
   
   void display() {
     rectMode(CENTER);
+    stroke(0);
     fill(c);
     rect(x, y, dx, dy, 3);
     if(mouseX >= x - dx && mouseX <= x + dx && mouseY >= y - dy && mouseY <= y + dy) {

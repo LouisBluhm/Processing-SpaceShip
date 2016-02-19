@@ -1,6 +1,6 @@
 GameSettings mainGame;
-UI health, oxygen, planetNameUI;
-//Tile tile1;
+UI health, oxygen, planetNameUI, modal1;
+Tile[] tiles = new Tile[10];
 
 void setup() {
   size(1440, 900, P3D);
@@ -12,7 +12,10 @@ void setup() {
   oxygen = new UI(20, 55, "Oxygen (" + mainGame.shipOxygenCurrent + " / " + mainGame.shipOxygenCurrent + ")", mainGame.shipOxygenColor);
   planetNameUI = new UI(20, 90, "Planet: " + mainGame.planetNameRandom, mainGame.planetNameUIColor);
   
+  modal1 = new UI(width/2 - 75, height/2, mainGame.planetNameRandom, color(255));
+  
   //tile1 = new Tile(width/2, height/2, 500, 500, color(255));
+ 
 }
 
 void draw() {
@@ -28,6 +31,12 @@ void draw() {
   
   //Draw Planet
   mainGame.planetRender();
+  
+  if(mouseX > 1000 - mainGame.planetRadius) {
+    modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
+    modal1.draw();
+  }
+
   
   //Draw Ship
   //tile1.display();

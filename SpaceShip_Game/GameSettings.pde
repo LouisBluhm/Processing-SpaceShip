@@ -3,7 +3,7 @@ class GameSettings {
   //Ship configuration
   float shipHealth = 300;
   float shipHealthCurrent = 300;
-
+  
   float shipOxygen = 100;
   float shipOxygenCurrent = 100;
   
@@ -40,6 +40,10 @@ class GameSettings {
     sphere(planetRadius);
     lights();
     popMatrix();
+    
+    //if(dist(mouseX, mouseY, 1000, height/2) < (planetRadius / 2) && mousePressed == true) {
+    //  ellipse(width/2, height/2, 10, 10);
+    //}
   }
   
 }
