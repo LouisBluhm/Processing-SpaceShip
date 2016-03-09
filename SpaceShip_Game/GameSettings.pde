@@ -25,7 +25,6 @@ class GameSettings {
     planetDetail = _planetDetail;
     planetRadius = _planetRadius;
     planetRevolution = _planetRevolution;
-    
     planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
   }
   
@@ -38,7 +37,7 @@ class GameSettings {
     rotateY(radians(frameCount * planetRevolution));
     sphereDetail(planetDetail);
     sphere(planetRadius);
-    lights();
+    //lights();
     popMatrix();
     
     //if(dist(mouseX, mouseY, 1000, height/2) < (planetRadius / 2) && mousePressed == true) {

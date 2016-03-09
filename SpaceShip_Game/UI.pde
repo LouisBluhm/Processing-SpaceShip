@@ -1,4 +1,3 @@
-
 class UI {
   
   float x, y;
