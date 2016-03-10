@@ -6,14 +6,15 @@ void setup() {
   size(1440, 900, P3D);
   
   //Iniate random values for background planet
-  mainGame = new GameSettings(color(random(255), random(255), random(255)), (int)random(5, 50), random(100, 300), PI / 20);
+  //mainGame = new GameSettings(color(random(255), random(255), random(255)), (int)random(5, 50), random(100, 300), PI / 20);
+  mainGame = new GameSettings();
   
   health = new UI(20, 20, "Health (" + mainGame.shipHealthCurrent + " / " + mainGame.shipHealth + ")", mainGame.shipHealthColor);
-  oxygen = new UI(20, 55, "Oxygen (" + mainGame.shipOxygenCurrent + " / " + mainGame.shipOxygenCurrent + ")", mainGame.shipOxygenColor);
+  oxygen = new UI(20, 55, "Oxygen (" + mainGame.shipOxygenCurrent + " / " + mainGame.shipOxygen + ")", mainGame.shipOxygenColor);
   planetNameUI = new UI(20, 90, "Planet: " + mainGame.planetNameRandom, mainGame.planetNameUIColor);
   
   //Spaceship
-  mainShip = new Ship();
+  mainShip = new Ship(width/2 - 300, height/2);
   
   //Text modal
   modal1 = new UI(width/2 - 75, height/2, mainGame.planetNameRandom, color(255));
@@ -22,7 +23,11 @@ void setup() {
 
 void draw() {
   
-  background(255);
+  background(0);
+  
+  //Create initial level
+  mainGame.CreateLevel();
+  mainGame.minusResource(mainGame.shipOxygenCurrent);
   
   //Draw UI
   health.draw();
@@ -31,28 +36,24 @@ void draw() {
   oxygen.bar(20, 60, mainGame.shipOxygen, 10, mainGame.shipOxygenColor);
   planetNameUI.draw();
   
-  //Draw Planet
-  mainGame.planetRender();
-  
+  //Draw the ship
   mainShip.draw();
   mainShip.drawPlayers();
   mainShip.playerMovement();
-
-
   
-  if(mouseX > 1000 - mainGame.planetRadius) {
-    modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
-    modal1.draw();
-  }
-
+  modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
+  modal1.draw();
   
-  //Draw Ship
-  //tile1.display();
+  // TODO: Move modal detection to method within UI class
+  //if(mouseX > 1000 - planet.planetRadius) {
+  //  modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
+  //  modal1.draw();
+  //}
   
 }
 
 void keyPressed() {
   if(key == 'w') {
-    mainShip.playerMovement();
+    mainGame.CreateLevel();
   }
 }

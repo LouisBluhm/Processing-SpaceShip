@@ -14,7 +14,6 @@ class Players {
     playerSpeed = _playerSpeed;
     
     playerImage = loadImage("player.png");
-    playerImage.resize(50, 50);
   }
   
   void draw() {
