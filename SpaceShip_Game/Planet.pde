@@ -14,7 +14,6 @@ class Planet {
   }
   
   void planetRender() {
-    
     pushMatrix();
     translate(1200, height/2, -500);
     fill(planetColor);
@@ -24,7 +23,6 @@ class Planet {
     sphere(planetRadius);
     //lights();
     popMatrix();
-    
   }
   
 }
