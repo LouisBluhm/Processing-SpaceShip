@@ -1,5 +1,7 @@
 class UI {
   
+  //PFont font;
+  
   float x, y;
   String title;
   color c;
@@ -11,12 +13,15 @@ class UI {
     title = _title;
     c = _c;
     
+    //font = loadFont("text.vlw");
+
   }
   
   void draw() {
     fill(c);
     textAlign(0);
     text(title, x, y);
+    //textFont(font, 14);
   }
   
   void bar(float barX, float barY, float barWidth, float barHeight, color barColor) {
