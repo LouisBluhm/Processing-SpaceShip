@@ -3,14 +3,20 @@ import ddf.minim.*;
 AudioPlayer player;
 Minim minim;
 
-GameSettings mainGame;
+GameSettings mainGame, level2;
 Ship mainShip;
+
+Inventory inventory;
+boolean invOpen;
 
 void setup() {
   size(1440, 900, P3D);
 
   mainGame = new GameSettings();
   createAudio();
+
+  //Inventory
+  inventory = new Inventory();
 
   //Spaceship
   mainShip = new Ship(width/2 - 300, height/2);
@@ -25,16 +31,16 @@ void draw() {
 
   //Create initial level
   mainGame.createLevel();
+
   //mainGame.drawUI();
-  
-  mainGame.minusResource(mainGame.shipOxygenCurrent);
-  
+  //mainGame.minusResource(mainGame.shipOxygenCurrent);
+
   //Draw UI
 
   //Draw the ship
   mainShip.draw();
-  mainShip.drawPlayers();
-  mainShip.playerMovement();
+  //mainShip.drawPlayers();
+  //mainShip.playerMovement();
 
   mainGame.modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
   mainGame.modal1.draw();
@@ -44,6 +50,18 @@ void draw() {
   //  modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
   //  modal1.draw();
   //}
+  //println(mouseX, mouseY);
+  if (mouseX > width-200 && mouseX < width-95 && mouseY > 15 && mouseY < height-830) {
+    mainGame.buttonHover = true;
+    //println("button hover detected in draw()");
+  } else {
+    mainGame.buttonHover = false;
+  }
+  
+  if(invOpen) {
+    println("tab");
+    inventory.loadDefault();
+  }
 }
 
 void keyPressed() {
@@ -59,6 +77,11 @@ void keyPressed() {
     println("audio unmuted");
     mainGame.audioMuted = false;
     player.unmute();
+  }
+  if (key == CODED) {
+    if (keyCode == SHIFT) {
+      invOpen = !invOpen;
+    }
   }
 }
 
