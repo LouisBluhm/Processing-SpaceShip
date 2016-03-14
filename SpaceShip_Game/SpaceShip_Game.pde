@@ -7,11 +7,12 @@ GameSettings mainGame, level2;
 Ship mainShip;
 
 Inventory inventory;
-boolean invOpen;
+//boolean invOpen;
+PImage backgroundImage;
 
 void setup() {
   size(1440, 900, P3D);
-
+  backgroundImage = loadImage("background.png");
   mainGame = new GameSettings();
   createAudio();
 
@@ -26,8 +27,10 @@ void setup() {
 }
 
 void draw() {
+  frameRate(144);
+  surface.setTitle(int(frameRate) + " fps");
 
-  background(0);
+  background(backgroundImage);
 
   //Create initial level
   mainGame.createLevel();
@@ -42,8 +45,8 @@ void draw() {
   //mainShip.drawPlayers();
   //mainShip.playerMovement();
 
-  mainGame.modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
-  mainGame.modal1.draw();
+  //mainGame.modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
+  //mainGame.modal1.draw();
 
   // TODO: Move modal detection to method within UI class
   //if(mouseX > 1000 - planet.planetRadius) {
@@ -58,8 +61,7 @@ void draw() {
     mainGame.buttonHover = false;
   }
   
-  if(invOpen) {
-    println("tab");
+  if(inventory.invOpen) {
     inventory.loadDefault();
   }
 }
@@ -80,7 +82,7 @@ void keyPressed() {
   }
   if (key == CODED) {
     if (keyCode == SHIFT) {
-      invOpen = !invOpen;
+      inventory.invOpen = !inventory.invOpen;
     }
   }
 }
@@ -91,5 +93,5 @@ void createAudio() {
   //player = minim.loadFile("music.mp3", 2048);
   //ambient music
   player = minim.loadFile("ambient.mp3", 2048);
-  //player.loop();
+  player.loop();
 }

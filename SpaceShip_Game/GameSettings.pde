@@ -1,7 +1,7 @@
 class GameSettings {
 
   //UI objects
-  UI health, oxygen, planetNameUI, ftl_travel, modal1;
+  UI health, oxygen, planetNameUI, ftl_travel, modal1, shipDisplayPanel;
   boolean buttonHover = false;
   
   //Ship configuration
@@ -10,6 +10,9 @@ class GameSettings {
 
   float shipOxygen = 100;
   float shipOxygenCurrent = 100;
+  
+  float shipEngineHealth = 100;
+  float shipEngineHealthCurrent = 100;
 
   //UI Color
   color shipHealthColor = color(0, 255, 0);
@@ -27,55 +30,44 @@ class GameSettings {
   float resourceTimer;
   boolean audioMuted = false;
   boolean inventoryOpen = false;
-
-  //Load JSON data
-  JSONArray values;
   
   //Load Images
   PImage defaultPointer;
 
   GameSettings() {
-    values = loadJSONArray("text.json");
     planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 50), random(100, 300), PI / 20);
     planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
+    
     defaultPointer = loadImage("pointer_shadow.png");
-  }
-
-  void createLevel() {
-    planet.planetRender();
-    getJSON("info");
-    drawUI();
-    drawCursor(1);
-  }
-  
-  void createUI() {
+    
+    shipDisplayPanel = new UI(0, 0, "Section", color(255));
     health = new UI(20, 20, "Health (" + shipHealthCurrent + " / " + shipHealth + ")", shipHealthColor);
     oxygen = new UI(20, 55, "Oxygen (" + shipOxygenCurrent + " / " + shipOxygen + ")", shipOxygenColor);
     planetNameUI = new UI(20, 90, "Planet: " + planetNameRandom, planetNameUIColor);
     ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
   }
+
+  void createLevel() {
+    planet.planetRender();
+    drawUI();
+    drawCursor(1);
+  }
   
   void drawUI() {
-    createUI();
     health.draw();
     health.bar(20, 25, shipHealth, 10, shipHealthColor);
     oxygen.draw();
     oxygen.bar(20, 60, shipOxygen, 10, shipOxygenColor);
     planetNameUI.draw();
     ftl_travel.button(1300, 40);
+    if(mainShip.shipEngineOpen) {
+     shipDisplayPanel.shipSectionDisplay();
+    }
   }
   
   void drawCursor(float cursor) {
     if(cursor == 1) {
       cursor(defaultPointer, 0, 0);
-    }
-  }
-
-  void getJSON(String value) {
-    for (int i = 0; i < values.size(); i++) {
-      JSONObject text = values.getJSONObject(i);
-      String infoText = text.getString(value);
-      //println(infoText);
     }
   }
 

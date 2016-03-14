@@ -7,6 +7,9 @@ class UI {
   color c;
   PImage panel, panel2, panel2hover;
   PImage inv;
+  PImage shipSectionPanel;
+
+  float shipSectionX, shipSectionY;
   
   UI(float _x, float _y, String _title, color _c) {
     
@@ -16,10 +19,13 @@ class UI {
     c = _c;
     
     //font = createFont("KenPixel", 32);
-    
     panel = loadImage("modal1.png");
     panel2 = loadImage("panel2.png");
     panel2hover = loadImage("panel2hover.png");
+    
+    shipSectionPanel = loadImage("shipSectionPanel.png");
+    shipSectionX = width/2 - 570;
+    shipSectionY = height - 100;
   }
   
   void draw() {
@@ -61,6 +67,10 @@ class UI {
     textAlign(CENTER);
     textSize(font_size);
     text(string, x, y);
+  }
+  
+  void shipSectionDisplay() {
+    image(shipSectionPanel, shipSectionX, shipSectionY);
   }
   
 }
