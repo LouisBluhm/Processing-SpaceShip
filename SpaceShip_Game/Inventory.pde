@@ -12,7 +12,7 @@ class Inventory {
   JSONArray values;
 
   Inventory() {
-    inv = loadImage("inventory_withpanels.png");
+    inv = loadImage("inventory_withpanelstext.png");
     inv_item = loadImage("inventory_item.png");
     itemData = new UI(0, 0, "data", color(255));
     inv_itemX = width/2 - 400;

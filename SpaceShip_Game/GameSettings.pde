@@ -35,7 +35,7 @@ class GameSettings {
   PImage defaultPointer;
 
   GameSettings() {
-    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 50), random(100, 300), PI / 20);
+    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50);
     planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
     
     defaultPointer = loadImage("pointer_shadow.png");

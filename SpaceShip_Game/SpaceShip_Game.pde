@@ -2,6 +2,7 @@ import ddf.minim.*;
 
 AudioPlayer player;
 Minim minim;
+PFont font;
 
 GameSettings mainGame, level2;
 Ship mainShip;
@@ -12,10 +13,11 @@ PImage backgroundImage;
 
 void setup() {
   size(1440, 900, P3D);
+  font = createFont("SharpRetro-48", 32);
   backgroundImage = loadImage("background.png");
   mainGame = new GameSettings();
   createAudio();
-
+  textFont(font);
   //Inventory
   inventory = new Inventory();
 

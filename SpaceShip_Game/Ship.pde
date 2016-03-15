@@ -72,18 +72,22 @@ class Ship {
   void shipMainSelection() {
     if(mouseX > width/2-350 && mouseX < width/2-175 && mouseY < height/2+50 && mouseY > height/2-50) {
       ship_selection = shipImageMain;
+      shipMainOpen = true;
     }
   }
   void shipPilotSelection() {
     if(mouseX > width/2-175 && mouseX < width/2 && mouseY < height/2+60 && mouseY > height/2-60) {
       ship_selection = shipImagePilot;
+      shipPilotOpen = true;
     }
   }
   void shipArraySelection() {
     if(mouseX > width/2-350 && mouseX < width/2-175 && mouseY < height/2-50 && mouseY > height/2-180) {
       ship_selection = shipImageArrayTop;
+      shipArrayTopOpen = true;
     } else if(mouseX > width/2-350 && mouseX < width/2-175 && mouseY < height/2+180 && mouseY > height/2+50) {
       ship_selection = shipImageArrayBottom;
+      shipArrayBottomOpen = true;
     }
   }
 }
