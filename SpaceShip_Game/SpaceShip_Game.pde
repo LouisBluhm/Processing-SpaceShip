@@ -4,51 +4,86 @@ AudioPlayer player;
 Minim minim;
 PFont font;
 
-GameSettings mainGame, level2;
+GameSettings mainGame;
 Ship mainShip;
 
-Inventory inventory;
-//boolean invOpen;
-PImage backgroundImage;
+PImage backgroundImage, menu1img, menu2img, menu3img;
+
+Event eventChecker;
+
+int currentScreen;
 
 void setup() {
+  //Size of window and use of 3D Engine
   size(1440, 900, P3D);
+  //Load font from data folder
   font = createFont("SharpRetro-48", 32);
+  //Set background image for window
   backgroundImage = loadImage("background.png");
+  menu1img = loadImage("menu1.png");
+  menu2img = loadImage("menu2.png");
+  menu3img = loadImage("menu3.png");
+  
+  //Create a new game instance
   mainGame = new GameSettings();
+  
+  //Load audio for game instance
   createAudio();
   textFont(font);
-  //Inventory
-  inventory = new Inventory();
 
   //Spaceship
   mainShip = new Ship(width/2 - 300, height/2);
 
   //Text modal
-  mainGame.modal1 = new UI(width/2 - 75, height/2, mainGame.planetNameRandom, color(255));
+  mainGame.modal1 = new UI(width/2 - 75, height/2, mainGame.planet.planetNameRandom, color(255));
+
+  //Create a new event object
+  eventChecker = new Event();
+  
 }
 
 void draw() {
-  frameRate(144);
-  surface.setTitle(int(frameRate) + " fps");
 
+  frameRate(60);
+  surface.setTitle("Ventura - alpha 1.2 | " + int(frameRate) + " fps");
+
+  drawMainGame();
+
+  // Menu selection
+  //switch(currentScreen) {
+  //  case 0: drawMenu1(); break;
+  //  case 1: drawMenu2(); break;
+  //  case 2: drawMenu3(); break;
+  //  case 3: drawMainGame(); break;
+  //}
+}
+
+void drawMenu1() {
+  background(menu1img);
+}
+void drawMenu2() {
+  background(menu2img);
+}
+void drawMenu3() {
+  background(menu3img);
+}
+
+void drawMainGame() {
   background(backgroundImage);
-
-  //Create initial level
-  mainGame.createLevel();
-
-  //mainGame.drawUI();
-  //mainGame.minusResource(mainGame.shipOxygenCurrent);
-
-  //Draw UI
-
+  
   //Draw the ship
   mainShip.draw();
-  //mainShip.drawPlayers();
-  //mainShip.playerMovement();
+  
+  //Create initial level
+  mainGame.createLevel();
+  
+  //Check for random events
+  eventChecker.createEvent();
 
-  //mainGame.modal1.modal(width/2, height/2, 300, 100, color(89, 89, 89));
-  //mainGame.modal1.draw();
+  if(mousePressed && mainGame.eventPanelClosed == false) {
+    println("Event panel closed!");
+    mainGame.eventPanelClosed = true;
+  }
 
   // TODO: Move modal detection to method within UI class
   //if(mouseX > 1000 - planet.planetRadius) {
@@ -58,20 +93,16 @@ void draw() {
   //println(mouseX, mouseY);
   if (mouseX > width-200 && mouseX < width-95 && mouseY > 15 && mouseY < height-830) {
     mainGame.buttonHover = true;
-    //println("button hover detected in draw()");
   } else {
     mainGame.buttonHover = false;
   }
-  
-  if(inventory.invOpen) {
-    inventory.loadDefault();
-  }
+}
+
+void mousePressed() {
+  if(currentScreen < 3) currentScreen++;
 }
 
 void keyPressed() {
-  if (key == 'w') {
-    mainGame.createLevel();
-  }
   if (key == 'm' && mainGame.audioMuted == false) {
     println("audio muted");
     mainGame.audioMuted = true;
@@ -82,10 +113,13 @@ void keyPressed() {
     mainGame.audioMuted = false;
     player.unmute();
   }
-  if (key == CODED) {
-    if (keyCode == SHIFT) {
-      inventory.invOpen = !inventory.invOpen;
-    }
+  if (key == 'w') {
+    mainGame.inventoryOpen = !mainGame.inventoryOpen;
+    mainGame.travelPanelOpen = false;
+  }
+  if (key == 'q') {
+    mainGame.travelPanelOpen = !mainGame.travelPanelOpen;
+    mainGame.inventoryOpen = false;
   }
 }
 
@@ -95,5 +129,7 @@ void createAudio() {
   //player = minim.loadFile("music.mp3", 2048);
   //ambient music
   player = minim.loadFile("ambient.mp3", 2048);
-  player.loop();
+  //menu music
+  //player = minim.loadFile("menu.mp3", 2048);
+  //player.loop();
 }

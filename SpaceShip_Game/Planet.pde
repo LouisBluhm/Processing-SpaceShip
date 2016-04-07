@@ -5,12 +5,16 @@ class Planet {
   float planetRadius;
   float planetRevolution;
   
+  String [] planetNames = {"Pohl 3", "Singhana", "Hopi", "Lazda", "Zelos", "Prima 2", "Xenu", "Epusid"};
+  String planetNameRandom;
+  
   Planet(color _planetColor, int _planetDetail, float _planetRadius, float _planetRevolution) {
     planetColor = _planetColor;
     planetDetail = _planetDetail;
     planetRadius = _planetRadius;
     planetRevolution = _planetRevolution;
-    //mainGame.planetNameRandom = mainGame.planetNames[(int)(Math.random() * mainGame.planetNames.length)];
+
+    planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
   }
   
   void planetRender() {
@@ -23,6 +27,21 @@ class Planet {
     sphere(planetRadius);
     //lights();
     popMatrix();
+    planetInfo();
+  }
+  
+  void planetInfo() {
+    // ellipse(1025, height/2, 200, 200);
+    println(planetNameRandom);
+    if(mousePlanetHover(1025, height/2, planetRadius)) {
+      mainGame.planetHoverInfoOpen = true;
+    } else {
+      mainGame.planetHoverInfoOpen = false;
+    }
+  }
+  
+  boolean mousePlanetHover(int x, int y, float diameter) {
+    return (dist(mouseX, mouseY, x, y) < diameter * 0.5);
   }
   
 }
