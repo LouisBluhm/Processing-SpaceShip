@@ -2,7 +2,6 @@ import ddf.minim.*;
 
 AudioPlayer player;
 Minim minim;
-PFont font;
 
 GameSettings mainGame;
 Ship mainShip;
@@ -16,8 +15,6 @@ int currentScreen;
 void setup() {
   //Size of window and use of 3D Engine
   size(1440, 900, P3D);
-  //Load font from data folder
-  font = createFont("SharpRetro-48", 32);
   //Set background image for window
   backgroundImage = loadImage("background.png");
   menu1img = loadImage("menu1.png");
@@ -29,7 +26,6 @@ void setup() {
   
   //Load audio for game instance
   createAudio();
-  textFont(font);
 
   //Spaceship
   mainShip = new Ship(width/2 - 300, height/2);

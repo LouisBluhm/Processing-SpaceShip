@@ -26,12 +26,11 @@ class GameSettings {
   color shipOxygenColor = color(114, 188, 212);
   color planetNameUIColor = color(255);
 
-  //Planet settings
-  // String[] planetNames = {"Pohl 3", "Singhana", "Hopi", "Lazda", "Zelos", "Prima 2", "Xenu", "Epusid"};
-  // String planetNameRandom;
-
   //Create a planet object
   Planet planet;
+  
+  //Crew
+  Crew crew1, crew2, crew3;
   
   //Game states
   boolean travelPanelOpen = false;
@@ -48,11 +47,18 @@ class GameSettings {
   PImage defaultPointer;
 
   GameSettings() {
-    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50);
-    // planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
+    //Create a random planet object
+    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
     
+    //Create the crew objects
+    crew1 = new Crew("Walker", 400, 10, 400, 45);
+    crew2 = new Crew("Andez", 460, 10, 460, 45);
+    crew3 = new Crew("Cooper", 520, 10, 520, 45);
+    
+    //Load cursor image
     defaultPointer = loadImage("pointer_shadow.png");
     
+    //Create various UI elements
     shipDisplayPanel = new UI(0, 0, "Section", color(255));
     health = new UI(20, 20, "Health (" + shipHealthCurrent + " / " + shipHealth + ")", shipHealthColor);
     oxygen = new UI(20, 55, "Oxygen (" + shipOxygenCurrent + " / " + shipOxygen + ")", shipOxygenColor);
@@ -62,8 +68,9 @@ class GameSettings {
     travelMenu = new UI(0, 0, "travelMenu", color(255));
     travelInfo = new UI(0, 0, "travelInfo", color(255));
     eventPanel = new UI(0, 0, "eventPanel", color(255));
-    planetHoverInfo = new UI(0, 0, "planetHoverinfo", color(255));
+    planetHoverInfo = new UI(1200, height/2 + 200, "planetHoverinfo", color(255));
     
+    //Create a new inventory object
     inventory = new Inventory();
   }
 
@@ -74,6 +81,7 @@ class GameSettings {
   }
   
   void drawUI() {
+
     health.draw();
     health.bar(20, 25, shipHealth, 10, shipHealthColor);
     oxygen.draw();
@@ -87,6 +95,13 @@ class GameSettings {
     drawInventory();
     drawEvent();
     drawPlanetHoverInfo();
+    drawCrew();
+  }
+  
+  void drawCrew() {
+    crew1.draw_crew();
+    crew2.draw_crew();
+    crew3.draw_crew();
   }
   
   void drawCursor(float cursor) {
@@ -120,8 +135,8 @@ class GameSettings {
   }
   
   void drawPlanetHoverInfo() {
-    if(planetHoverInfoOpen) {
-      ellipse(width/2, height/2, 200, 200);
+    if(planetHoverInfoOpen && travelPanelOpen == false && inventoryOpen == false && eventOpen == false) {
+      planetHoverInfo.planetHoverInfo();
     }
   }
  

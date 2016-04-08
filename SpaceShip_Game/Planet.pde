@@ -4,17 +4,54 @@ class Planet {
   int planetDetail;
   float planetRadius;
   float planetRevolution;
+  float planetTilt;
   
-  String [] planetNames = {"Pohl 3", "Singhana", "Hopi", "Lazda", "Zelos", "Prima 2", "Xenu", "Epusid"};
+  float planetTemperature;
+  float planetCircumference;
+  
+  String [] planetNames = {"Pohl 3", "Singhana", "Hopi", "Lazda", "Zelos", "Prima 2", "Xenu", "Epusid", "Hypersia", "Arda"};
   String planetNameRandom;
+  String [] planetSpecies = {"Vloux", "Lovlons", "Hobbits", "Strask", "Ryard", "NONE FOUND"};
+  String [] planetHostility = {"DANGEROUS", "PASSIVE", "NEUTRAL", "PASSIVE", "DANGEROUS", "N/A"};
+  String planetSpeciesRandom;
+  String planetSpeciesHostility;
   
-  Planet(color _planetColor, int _planetDetail, float _planetRadius, float _planetRevolution) {
+  HashMap<String,String> planetLife = new HashMap<String,String>();
+  
+  Planet(color _planetColor, int _planetDetail, float _planetRadius, float _planetRevolution, float _planetTilt) {
     planetColor = _planetColor;
     planetDetail = _planetDetail;
     planetRadius = _planetRadius;
     planetRevolution = _planetRevolution;
+    planetTilt = _planetTilt;
+
+    for(int i = 0; i < planetSpecies.length; i++) {
+      planetLife.put(planetSpecies[i], planetHostility[i]);
+    }
 
     planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
+    planetSpeciesRandom = planetSpecies[(int)(Math.random() * planetSpecies.length)];
+    planetSpeciesHostility = planetLife.get(planetSpeciesRandom);
+    
+    planetCircumference = (PI * planetRadius * 2) * 35;
+
+    float[] planetRGB = extractColors(planetColor); 
+
+    //Cold
+    if(planetRGB[0] < 100 && planetRGB[1] < 100 && planetRGB[2] < 100) {
+      planetTemperature = (int)random(-40, 5);
+    }
+    //Very cold
+    if(planetRGB[0] > 200 && planetRGB[1] > 200 && planetRGB[2] > 200) {
+      planetTemperature = (int)random(-40, -5);
+    }
+    //Very hot
+    if(planetRGB[0] > 150 && planetRGB[1] < 100 && planetRGB[2] < 100) {
+      planetTemperature = (int)random(30, 40);
+    } else {
+      planetTemperature = (int)random(5, 15);
+    }
+    planetTemperature *= 0.00005 * sq(planetRadius);
   }
   
   void planetRender() {
@@ -23,6 +60,7 @@ class Planet {
     fill(planetColor);
     stroke(255);
     rotateY(radians(frameCount * planetRevolution));
+    rotateX(planetTilt);
     sphereDetail(planetDetail);
     sphere(planetRadius);
     //lights();
@@ -30,9 +68,15 @@ class Planet {
     planetInfo();
   }
   
+  float[] extractColors(color c) {
+    float r = (c >> 16) & 0xFF;
+    float g = (c >> 8) & 0xFF;
+    float b = c & 0xFF;
+    float[] color_values = {r, g, b}; 
+    return color_values;
+  }
+  
   void planetInfo() {
-    // ellipse(1025, height/2, 200, 200);
-    println(planetNameRandom);
     if(mousePlanetHover(1025, height/2, planetRadius)) {
       mainGame.planetHoverInfoOpen = true;
     } else {

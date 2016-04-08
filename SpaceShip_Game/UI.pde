@@ -10,10 +10,20 @@ class UI {
   PImage shipSectionPanel;
   PImage travelPanel;
   PImage eventPanel;
+  PImage planetHoverPanel;
+  PImage travelHover;
+  
+  color hostility;
 
   float shipSectionX, shipSectionY;
   
+  PFont font;
+  
   UI(float _x, float _y, String _title, color _c) {
+    
+    font = loadFont("SharpRetro-48.vlw");
+    //font = loadFont("KenPixel-48.vlw");
+    textFont(font, 140);
     
     x = _x;
     y = _y;
@@ -32,12 +42,15 @@ class UI {
     travelPanel = loadImage("travel.png");
     
     eventPanel = loadImage("modal1.png");
+    
+    planetHoverPanel = loadImage("planet_hover.png");
+    travelHover = loadImage("travel_hover.png");
   }
   
   void draw() {
     fill(c);
     textAlign(0);
-    textSize(12);
+    textSize(19);
     text(title, x, y);
     //textFont(font);
   }
@@ -65,7 +78,7 @@ class UI {
     if(mainGame.buttonHover == true) {
       image(panel2hover, buttonX, buttonY);
     }
-    text_string(buttonX, buttonY + 5, title, 14, color(255), CENTER);
+    text_string(buttonX, buttonY + 5, title, 19, color(255), CENTER);
   }
   
   void text_string(float x, float y, String string, int font_size, color c, int align) {
@@ -103,28 +116,12 @@ class UI {
     for(int i = 0; i < travelID.length; i += 2) {
       ellipse(travelID[i], travelID[i+1], systemSize, systemSize);
       if(hoverDetection(travelID[i], travelID[i+1], systemSize)) {
+        imageMode(CORNER);
+        image(travelHover, travelID[i], travelID[i+1]);
+        text_string(travelID[i]+25, travelID[i+1]+25, mainGame.planet.planetNameRandom, 25, color(255), LEFT);
         ellipse(travelID[i], travelID[i+1], 12, 12);
       }
     }
-    //for(int i = 0; i < travelID.length; i++) {
-    //  for(int n = 1; n < travelID.length; n+=2) {
-    //    if(hoverDetection(travelID[i], travelID[n], systemSize)) {
-
-    //      ellipse(travelID[i], travelID[n], 12, 12);
-    //      // line(travelID[i], travelID[n], travelID[i+1], travelID[n+1]);
-          
-    //      travelPlanetInfo(travelID[0], travelID[n], n);
-          
-    //      println("i[pos] >>> " + travelID[i]);
-    //      println("i >>> " + i);
-    //      println("n >>> " + n);
-    //      //println("X1: " + travelID[i] + ">>>" + travelID[0]);
-    //      //println("Y1: " + travelID[n] + ">>>" + travelID[1]);
-    //      //println("X2: " + travelID[i+2] + ">>>" + travelID[2]);
-    //      //println("Y2: " + travelID[n+2] + ">>>" + travelID[3]);
-    //    }
-    //  }
-    //}
   }
   
   void travelPlanetInfo(float x, float y, int planetNum) {
@@ -140,6 +137,45 @@ class UI {
     else {
       return false;
     }
+  }
+  
+  void planetHoverInfo() {
+    image(planetHoverPanel, x, y);
+    float textX = x - 165;
+    float textXside = x + 165;
+    int textSize = 20;
+    int textSizePlanet = 24;
+    line(textX, y-145, textXside, y-145);
+    //Planet name
+    text_string(textX, y-150, "Planet: ", textSizePlanet, c, LEFT);
+    text_string(textXside, y-150, mainGame.planet.planetNameRandom, textSizePlanet, c, RIGHT);
+    //Species + Hostility
+    text_string(textX, y-120, "Main Species: ", textSize, c, LEFT);
+    text_string(textXside, y-120, mainGame.planet.planetSpeciesRandom, textSize, c, RIGHT);
+    text_string(textX, y-100, "Hostility: ", textSize, c, LEFT);
+    
+    if(mainGame.planet.planetSpeciesHostility.equals("DANGEROUS")) {
+      hostility = color(255, 0, 0);
+    }
+    if(mainGame.planet.planetSpeciesHostility.equals("PASSIVE")) {
+      hostility = color(102, 135, 231);
+    }
+    if(mainGame.planet.planetSpeciesHostility.equals("NEUTRAL")) {
+      hostility = color(255);
+    }
+    if(mainGame.planet.planetSpeciesHostility.equals("N/A")) {
+      hostility = color(150, 76, 150);
+    }
+    text_string(textXside, y-100, mainGame.planet.planetSpeciesHostility, textSize, hostility, RIGHT);
+    
+    
+    //Other
+    text_string(textX, y-60, "Circumference: ", textSize, c, LEFT);
+    text_string(textXside, y-60, mainGame.planet.planetCircumference + " km", textSize, c, RIGHT);
+    text_string(textX, y-40, "Axial Tilt: ", textSize, c, LEFT);
+    text_string(textXside, y-40, mainGame.planet.planetTilt + " RAD", textSize, c, RIGHT);
+    text_string(textX, y-20, "Surface Temp: ", textSize, c, LEFT);
+    text_string(textXside, y-20, mainGame.planet.planetTemperature + " DEG", textSize, c, RIGHT);
   }
   
 }
