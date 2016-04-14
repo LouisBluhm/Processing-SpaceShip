@@ -45,10 +45,6 @@ class Inventory {
     println("--------");
     }
   } 
-  
-  boolean rectHover(int x, int y, int w, int h) {
-    return (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h);
-  }
 
   void loadJSON() {
     for(int i = 0; i < items.size(); i++) {

@@ -64,7 +64,6 @@ class GameSettings {
     oxygen = new UI(20, 55, "Oxygen (" + shipOxygenCurrent + " / " + shipOxygen + ")", shipOxygenColor);
     planetNameUI = new UI(20, 90, "Planet: " + planet.planetNameRandom, planetNameUIColor);
     ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
-    
     travelMenu = new UI(0, 0, "travelMenu", color(255));
     travelInfo = new UI(0, 0, "travelInfo", color(255));
     eventPanel = new UI(0, 0, "eventPanel", color(255));
@@ -128,7 +127,6 @@ class GameSettings {
   
   void drawEvent() {
     if(eventOpen) {
-      println("EVENT PANEL OPENED");
       eventPanel.eventPanelDisplay();
       eventPanelClosed = false;
     }
@@ -139,5 +137,4 @@ class GameSettings {
       planetHoverInfo.planetHoverInfo();
     }
   }
- 
 }

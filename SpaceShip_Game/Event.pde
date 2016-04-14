@@ -8,6 +8,10 @@ class Event {
   float id;
   String event;
   
+  //UI positioning
+  float response_xpos = width/2 - 300;
+  float[] response_ypos = {height/2+30, height/2+70, height/2+110};
+  
   Event() {
     //random_events = loadStrings("events.ven");
     //message = random_events[(int)(Math.random() * random_events.length)];
@@ -29,19 +33,30 @@ class Event {
     responses = row.getString("responses");
     
     parsed_responses = split(responses, "|");
-    
+    for(int i = 0; i < parsed_responses.length; i++) {
+      if(parsed_responses[i].equals("Null")) {
+        parsed_responses[i].replaceAll("Null", "");
+      }
+    }
+  }
+  
+  String randomEventString() {
+    return message;
+  }
+  String eventResponses(int id) {
+    return parsed_responses[id];
   }
   
   void createEvent() {
-    if(minute() > time) {
-      println("Checking for event");
-      if(mainGame.eventPanelClosed && mainGame.inventoryOpen == false && mainGame.travelPanelOpen == false) {
-        if(randomEvent()) {
-          println(">>>>> EVENT <<<<<");
+    if(true) {
+    // if(minute() > time) {
+      if(true) {
+      // if(mainGame.eventPanelClosed && mainGame.inventoryOpen == false && mainGame.travelPanelOpen == false) {
+        if(true) {
+        // if(randomEvent()) {
           mainGame.eventOpen = true;
         }
         else {
-          print("Event not started");
           mainGame.eventOpen = false;
         }
       }
@@ -56,13 +71,6 @@ class Event {
     } else {
       return false;
     }
-  }
-  
-  String randomEventString() {
-    return message;
-  }
-  String eventResponses(int id) {
-    return parsed_responses[id];
   }
  
 }

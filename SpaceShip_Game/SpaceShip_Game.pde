@@ -129,3 +129,8 @@ void createAudio() {
   //player = minim.loadFile("menu.mp3", 2048);
   //player.loop();
 }
+
+boolean rectHover(float x, float y, float w, float h) {
+  return (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h);
+}
+  
