@@ -38,6 +38,7 @@ class GameSettings {
   boolean eventOpen = false;
   boolean eventPanelClosed = true;
   boolean planetHoverInfoOpen = false;
+  boolean eventResponsesOpen = false;
 
   //Game default config
   float resourceTimer;
@@ -51,9 +52,9 @@ class GameSettings {
     planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
     
     //Create the crew objects
-    crew1 = new Crew("Walker", 400, 10, 400, 45);
-    crew2 = new Crew("Andez", 460, 10, 460, 45);
-    crew3 = new Crew("Cooper", 520, 10, 520, 45);
+    crew1 = new Crew("Walker", "Engineer", 400, 10, 400, 45);
+    crew2 = new Crew("Andez", "Physicist", 460, 10, 460, 45);
+    crew3 = new Crew("Cooper", "Pilot", 520, 10, 520, 45);
     
     //Load cursor image
     defaultPointer = loadImage("pointer_shadow.png");
@@ -82,9 +83,9 @@ class GameSettings {
   void drawUI() {
 
     health.draw();
-    health.bar(20, 25, shipHealth, 10, shipHealthColor);
+    health.bar(20, 25, shipHealthCurrent, 10, shipHealthColor, 300);
     oxygen.draw();
-    oxygen.bar(20, 60, shipOxygen, 10, shipOxygenColor);
+    oxygen.bar(20, 60, shipOxygenCurrent, 10, shipOxygenColor, 100);
     planetNameUI.draw();
     ftl_travel.button(1300, 40);
     if(mainShip.shipEngineOpen) {
@@ -127,7 +128,7 @@ class GameSettings {
   
   void drawEvent() {
     if(eventOpen) {
-      eventPanel.eventPanelDisplay();
+      eventPanel.drawEventPanel();
       eventPanelClosed = false;
     }
   }

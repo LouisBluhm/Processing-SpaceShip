@@ -8,13 +8,14 @@ class Crew {
   float crewNameX, crewNameY;
   float crewIconX, crewIconY;
   
-  String crewName;
+  String crewName, crewRole;
   
-  UI crewInfo;
+  UI crewInfo;  
   
-  Crew(String _crewName, float _crewIconX, float _crewIconY, float _crewNameX, float _crewNameY) {
+  Crew(String _crewName, String _crewRole, float _crewIconX, float _crewIconY, float _crewNameX, float _crewNameY) {
     
     crewName = _crewName;
+    crewRole = _crewRole;
     crewIconX = _crewIconX;
     crewIconY = _crewIconY;
     crewNameX = _crewNameX;
@@ -47,20 +48,30 @@ class Crew {
     icon(crewIconX, crewIconY);
     crewInfo.text_string(crewInfo.x, crewInfo.y, crewInfo.title, 16, crewInfo.c, LEFT);
     status();
-    crewInfo.bar(crewNameX, crewNameY+4, crewCurrentHealth * 0.5, 2, crewCurrentHealthColor);
+    crewInfo.bar(crewNameX, crewNameY+4, crewCurrentHealth * 0.5, 2, crewCurrentHealthColor, 0);
   }
 
   void check_crew() {
-    if(rectHover(crewIconX, crewIconY, 50, 50)) {
+    if(rectHover(crewIconX, crewIconY, 50, 50) && mainGame.eventOpen == false) {
       stroke(114, 188, 212);
       fill(51, 51, 51);
       rect(crewIconX, crewIconY, 50, 50);
-      // draw_crew_detailed();
+      if(mousePressed) {
+        draw_crew_detailed();
+      }
     }
   }
   
   void draw_crew_detailed() {
-    crewInfo.modal(width/2, height/2, 200, 200, color(51, 51, 51));
+    rect(crewIconX+25, crewIconY+50, 150, 200);
+    crewInfo.text_string(crewIconX+30, crewIconY+65, "Name: " + crewName, 20, color(255), LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+80, "HP: " + crewCurrentHealth, 20, crewCurrentHealthColor, LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+95, "Role: " + crewRole, 20, color(255), LEFT);
+    line(crewIconX+30, crewIconY+105, crewIconX+170, crewIconY+105);
+    crewInfo.text_string(crewIconX+30, crewIconY+125, "INT: ", 20, color(255), LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+140, "STR: ", 20, color(255), LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+155, "CHAR: ", 20, color(255), LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+170, "DEX: ", 20, color(255), LEFT);
   }
   
 }

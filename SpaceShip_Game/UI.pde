@@ -55,11 +55,14 @@ class UI {
     //textFont(font);
   }
   
-  void bar(float barX, float barY, float barWidth, float barHeight, color barColor) {
+  void bar(float barX, float barY, float barWidth, float barHeight, color barColor, float barWidthTotal) {
     rectMode(CORNER);
-    stroke(barColor);
     fill(barColor);
+    stroke(255);
+    rect(barX, barY, barWidthTotal, barHeight);
+    stroke(barColor);
     rect(barX, barY, barWidth, barHeight);
+    
   }
   
   void modal(float modalX, float modalY, float modalWidth, float modalHeight, color modalColor) {
@@ -88,39 +91,50 @@ class UI {
     text(string, x, y);
   }
   
-  void eventPanelDisplay() {
-    //float response_xpos = width/2 - 300;
-    //float[] response_ypos = {height/2+30, height/2+70, height/2+110};
-    
-    image(eventPanel, width/2, height/2);
-    text_string(width/2, height/2 - 100, eventChecker.randomEventString(), 24, color(255), CENTER);
-    
-    for(int i = 0; i < eventChecker.response_ypos.length; i++) {
-      if(rectHover(eventChecker.response_xpos, eventChecker.response_ypos[i]-25, 600, 25)) {
-        fill(51, 51, 51);
-        rect(eventChecker.response_xpos, eventChecker.response_ypos[i]-14, 600, 20);
-        if(mousePressed) {
-          println("IndexPos: " + i);
+  void eventPanelDisplay() {  
+    eventChecker.displayEventText();
+  }
+  void responsePanelDisplay(int selection) {
+    eventChecker.displayResponseText(selection);
+  }
+
+  void drawEventPanel() {
+    if(mainGame.eventOpen == true) {
+      image(eventPanel, width/2, height/2);
+      if(mainGame.eventResponsesOpen == false) {
+        for(int i = 0; i < eventChecker.response_ypos.length; i++) {
+          if(rectHover(eventChecker.response_xpos, eventChecker.response_ypos[i]-25, 600, 25)) {
+            fill(51, 51, 51);
+            rect(eventChecker.response_xpos, eventChecker.response_ypos[i]-14, 600, 20);
+          }
+          if(rectHover(eventChecker.response_xpos, eventChecker.response_ypos[i]-25, 600, 25) && mousePressed) {
+            mainGame.eventResponsesOpen = true;
+            eventChecker.response_id = i;
+          }
         }
+        eventPanelDisplay();
+      }
+      if(mainGame.eventResponsesOpen) {
+        responsePanelDisplay(eventChecker.response_id);
+        responsePanelClose();
       }
     }
-    
-    //Response 1
-    text_string(eventChecker.response_xpos, eventChecker.response_ypos[0], "1. " + eventChecker.eventResponses(0), 22, color(255), LEFT);
-    //Response 2
-    text_string(eventChecker.response_xpos, eventChecker.response_ypos[1], "2. "+ eventChecker.eventResponses(1), 22, color(255), LEFT);
-    //Response 3
-    text_string(eventChecker.response_xpos, eventChecker.response_ypos[2], "3. "+ eventChecker.eventResponses(2), 22, color(255), LEFT);
-    
+  }
+  
+  void responsePanelClose() {
     rectMode(CENTER);
-    if(rectHover(width/2, height/2 + 180, 200, 25)) {
+    if(rectHover(width/2-100, height/2 + 170, 200, 25)) {
       fill(30, 30, 30);
     } else {
-    fill(51, 51, 51);      
-    }
-    rect(width/2, height/2 + 180, 200, 25);
+      fill(51, 51, 51);      
+    } 
+    rect(width/2, height/2+180, 200, 25);
     text_string(width/2, height/2+185, "Click here to close", 22, color(255), CENTER);
-}
+    if(rectHover(width/2-100, height/2+170, 200, 25) && mousePressed) {
+      mainGame.eventOpen = false;
+      mainGame.eventPanelClosed = true;
+    }
+  }
   
   void shipSectionDisplay() {
     image(shipSectionPanel, shipSectionX, shipSectionY);
