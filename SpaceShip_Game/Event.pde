@@ -9,11 +9,12 @@ class Event {
   int row_random;
   TableRow row, response_row;
   
-  //Event text
-  String message, responses, event;
+  //Event variables
+  String message, responses, event, row_id;
   String[] parsed_responses;
   float id;
-  //Response text
+  
+  //Response variables
   String response_message;
   String[] parsed_response_messages;
   int response_id;
@@ -22,7 +23,7 @@ class Event {
   float response_stats;
   boolean response_stats_found = false;
   
-  //UI positioning
+  //UI objects/positioning
   UI eventMainText;
   UI eventMainResponse_1, eventMainResponse_2, eventMainResponse_3;
   UI[] eventMainResponses = new UI[3];
@@ -47,6 +48,7 @@ class Event {
     message = row.getString("event");
     responses = row.getString("responses");
     response_message = response_row.getString("responses");
+    row_id = response_row.getString("id");
     
     parsed_responses = split(responses, "|");
     parsed_response_messages = split(response_message, "|");
@@ -103,9 +105,10 @@ class Event {
       if(response_stats_found) {
         unparsed_text_info = split(unparsed_text, "$");
         response_stats = Float.valueOf(unparsed_text_info[1]).floatValue();
-        println(response_stats);
+        //println(response_stats);
         mainGame.shipHealthCurrent += response_stats;
         mainGame.crew1.crewCurrentHealth += response_stats;
+        //mainShip.shipEngineCurrentHP -= 70;
       }
     }
   }

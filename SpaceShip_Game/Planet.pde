@@ -30,6 +30,7 @@ class Planet {
     }
 
     planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
+    
     planetSpeciesRandom = planetSpecies[(int)(Math.random() * planetSpecies.length)];
     planetSpeciesHostility = planetLife.get(planetSpeciesRandom);
     
@@ -59,6 +60,7 @@ class Planet {
     translate(1200, height/2, -500);
     fill(planetColor);
     stroke(255);
+    //stroke(255);
     rotateY(radians(frameCount * planetRevolution));
     rotateX(planetTilt);
     sphereDetail(planetDetail);

@@ -11,26 +11,29 @@ class GameSettings {
   //Inventory
   Inventory inventory;
   
-  //Ship configuration
-  float shipHealth = 300;
-  float shipHealthCurrent = 300;
+  //Ship configurations
+  int shipHealth = 300;
+  int shipHealthCurrent = 300;
 
-  float shipOxygen = 100;
-  float shipOxygenCurrent = 100;
-  
-  float shipEngineHealth = 100;
-  float shipEngineHealthCurrent = 100;
+  int shipOxygen = 100;
+  int shipOxygenCurrent = 100;
 
-  //UI Color
+  //UI Colors
   color shipHealthColor = color(0, 255, 0);
   color shipOxygenColor = color(114, 188, 212);
   color planetNameUIColor = color(255);
+  color goodHP = color(0, 255, 0);
+  color lowHP = color(255, 71, 25);
+  color verylowHP = color(255, 0, 0);
 
   //Create a planet object
   Planet planet;
   
   //Crew
   Crew crew1, crew2, crew3;
+  
+  //Travel window object
+  Travel travel;
   
   //Game states
   boolean travelPanelOpen = false;
@@ -49,7 +52,8 @@ class GameSettings {
 
   GameSettings() {
     //Create a random planet object
-    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
+    //planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
+    createPlanet();
     
     //Create the crew objects
     crew1 = new Crew("Walker", "Engineer", 400, 10, 400, 45);
@@ -63,15 +67,20 @@ class GameSettings {
     shipDisplayPanel = new UI(0, 0, "Section", color(255));
     health = new UI(20, 20, "Health (" + shipHealthCurrent + " / " + shipHealth + ")", shipHealthColor);
     oxygen = new UI(20, 55, "Oxygen (" + shipOxygenCurrent + " / " + shipOxygen + ")", shipOxygenColor);
-    planetNameUI = new UI(20, 90, "Planet: " + planet.planetNameRandom, planetNameUIColor);
     ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
     travelMenu = new UI(0, 0, "travelMenu", color(255));
     travelInfo = new UI(0, 0, "travelInfo", color(255));
     eventPanel = new UI(0, 0, "eventPanel", color(255));
     planetHoverInfo = new UI(1200, height/2 + 200, "planetHoverinfo", color(255));
     
-    //Create a new inventory object
+    //Create various objects
     inventory = new Inventory();
+    travel = new Travel();
+  }
+  
+  void createPlanet() {
+    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
+    planetNameUI = new UI(20, 90, "Planet: " + planet.planetNameRandom, planetNameUIColor);
   }
 
   void createLevel() {
@@ -81,14 +90,13 @@ class GameSettings {
   }
   
   void drawUI() {
-
     health.draw();
     health.bar(20, 25, shipHealthCurrent, 10, shipHealthColor, 300);
     oxygen.draw();
     oxygen.bar(20, 60, shipOxygenCurrent, 10, shipOxygenColor, 100);
     planetNameUI.draw();
     ftl_travel.button(1300, 40);
-    if(mainShip.shipEngineOpen) {
+    if(mainShip.shipEngineOpen || mainShip.shipMainOpen || mainShip.shipArrayTopOpen || mainShip.shipArrayBottomOpen || mainShip.shipPilotOpen) {
      shipDisplayPanel.shipSectionDisplay();
     }
     drawTravelMenu();
@@ -116,18 +124,22 @@ class GameSettings {
   
   void drawTravelMenu() {
     if(travelPanelOpen) {
-      travelMenu.travelPanelDisplay();
+      shipStateChange();
+      travel.draw();
+      // travelMenu.travelPanelDisplay();
     }
   }
   
   void drawInventory() {
     if(inventoryOpen) {
+      shipStateChange();
       inventory.loadDefault();
     }
   }
   
   void drawEvent() {
     if(eventOpen) {
+      shipStateChange();
       eventPanel.drawEventPanel();
       eventPanelClosed = false;
     }
@@ -137,5 +149,13 @@ class GameSettings {
     if(planetHoverInfoOpen && travelPanelOpen == false && inventoryOpen == false && eventOpen == false) {
       planetHoverInfo.planetHoverInfo();
     }
+  }
+  
+  void shipStateChange() {
+    mainShip.shipEngineOpen = false;
+    mainShip.shipMainOpen = false;
+    mainShip.shipArrayBottomOpen = false;
+    mainShip.shipArrayTopOpen = false;
+    mainShip.shipPilotOpen = false;
   }
 }
