@@ -49,6 +49,9 @@ class GameSettings {
   
   //Load Images
   PImage defaultPointer;
+  
+  //test vars
+  int planet_counter;
 
   GameSettings() {
     //Create a random planet object
@@ -79,8 +82,9 @@ class GameSettings {
   }
   
   void createPlanet() {
-    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
+    planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2), planet_counter);
     planetNameUI = new UI(20, 90, "Planet: " + planet.planetNameRandom, planetNameUIColor);
+    planet_counter++;
   }
 
   void createLevel() {
@@ -96,7 +100,7 @@ class GameSettings {
     oxygen.bar(20, 60, shipOxygenCurrent, 10, shipOxygenColor, 100);
     planetNameUI.draw();
     ftl_travel.button(1300, 40);
-    if(mainShip.shipEngineOpen || mainShip.shipMainOpen || mainShip.shipArrayTopOpen || mainShip.shipArrayBottomOpen || mainShip.shipPilotOpen) {
+    if(mainShip.shipEngineOpen || mainShip.shipMainOpen || mainShip.shipArrayTopOpen || mainShip.shipArrayBottomOpen || mainShip.shipPilotOpen && travelPanelOpen == false && inventoryOpen == false && eventOpen == false) {
      shipDisplayPanel.shipSectionDisplay();
     }
     drawTravelMenu();

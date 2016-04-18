@@ -10,6 +10,7 @@ class Planet {
   float planetCircumference;
   
   String [] planetNames = {"Pohl 3", "Singhana", "Hopi", "Lazda", "Zelos", "Prima 2", "Xenu", "Epusid", "Hypersia", "Arda"};
+  int planetCount;
   String planetNameRandom;
   String [] planetSpecies = {"Vloux", "Lovlons", "Hobbits", "Strask", "Ryard", "NONE FOUND"};
   String [] planetHostility = {"DANGEROUS", "PASSIVE", "NEUTRAL", "PASSIVE", "DANGEROUS", "N/A"};
@@ -18,19 +19,22 @@ class Planet {
   
   HashMap<String,String> planetLife = new HashMap<String,String>();
   
-  Planet(color _planetColor, int _planetDetail, float _planetRadius, float _planetRevolution, float _planetTilt) {
+  Planet(color _planetColor, int _planetDetail, float _planetRadius, float _planetRevolution, float _planetTilt, int _planetCount) {
     planetColor = _planetColor;
     planetDetail = _planetDetail;
     planetRadius = _planetRadius;
     planetRevolution = _planetRevolution;
     planetTilt = _planetTilt;
+    planetCount = _planetCount;
 
     for(int i = 0; i < planetSpecies.length; i++) {
       planetLife.put(planetSpecies[i], planetHostility[i]);
     }
 
-    planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
-    
+    // planetNameRandom = planetNames[(int)(Math.random() * planetNames.length)];
+  
+    planetNameRandom = planetNames[planetCount];
+         
     planetSpeciesRandom = planetSpecies[(int)(Math.random() * planetSpecies.length)];
     planetSpeciesHostility = planetLife.get(planetSpeciesRandom);
     

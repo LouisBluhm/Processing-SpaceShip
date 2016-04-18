@@ -115,6 +115,7 @@ void createAudio() {
   //player = minim.loadFile("ambient.mp3", 2048);
   //menu music
   //player = minim.loadFile("menu.mp3", 2048);
+  //player.setVolume(0.5);
   //player.loop();
 }
 
