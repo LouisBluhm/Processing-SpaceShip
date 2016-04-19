@@ -9,7 +9,7 @@ Ship mainShip;
 
 PImage backgroundImage, menu1img, menu2img, menu3img;
 
-Event eventChecker;
+// Event eventChecker;
 
 int currentScreen;
 
@@ -36,7 +36,7 @@ void setup() {
   mainGame.modal1 = new UI(width/2 - 75, height/2, mainGame.planet.planetNameRandom, color(255));
 
   //Create a new event object
-  eventChecker = new Event();
+  //eventChecker = new Event();
 }
 
 void draw() {
@@ -75,7 +75,7 @@ void drawMainGame() {
   mainGame.createLevel();
 
   //Check for random events
-  eventChecker.createEvent();
+  // eventChecker.createEvent();
   
 }
 

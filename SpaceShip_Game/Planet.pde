@@ -83,15 +83,10 @@ class Planet {
   }
   
   void planetInfo() {
-    if(mousePlanetHover(1025, height/2, planetRadius)) {
+    if(ellipseHover(1025, height/2, planetRadius) && mainGame.travelPanelOpen == false && mainGame.eventOpen == false && mainGame.eventResponsesOpen == false) {
       mainGame.planetHoverInfoOpen = true;
     } else {
       mainGame.planetHoverInfoOpen = false;
     }
   }
-  
-  boolean mousePlanetHover(int x, int y, float diameter) {
-    return (dist(mouseX, mouseY, x, y) < diameter * 0.5);
-  }
-  
 }

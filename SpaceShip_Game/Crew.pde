@@ -69,6 +69,13 @@ class Crew {
       }
     }
   }
+
+  void changeHealth(int amount) {
+   println("[INFO] Changing health of " + this.getClass().getCanonicalName() + " by " + amount);
+   if(!(crewCurrentHealth + amount >= crewHealth)) {
+     crewCurrentHealth += amount;
+   }
+  }
   
   void draw_crew_detailed() {
     rect(crewIconX+25, crewIconY+50, 150, 200);

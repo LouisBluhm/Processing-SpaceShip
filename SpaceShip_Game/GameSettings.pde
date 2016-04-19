@@ -25,6 +25,11 @@ class GameSettings {
   color goodHP = color(0, 255, 0);
   color lowHP = color(255, 71, 25);
   color verylowHP = color(255, 0, 0);
+  color gain = color(0, 255, 0);
+  color loss = color(255, 0, 0);
+  
+  //UI Fonts
+  int event_log_size = 24;
 
   //Create a planet object
   Planet planet;
@@ -34,6 +39,9 @@ class GameSettings {
   
   //Travel window object
   Travel travel;
+  
+  //Create random event object;
+  Event newEvent;
   
   //Game states
   boolean travelPanelOpen = false;
@@ -82,9 +90,12 @@ class GameSettings {
   }
   
   void createPlanet() {
+    planetTransition();
     planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2), planet_counter);
     planetNameUI = new UI(20, 90, "Planet: " + planet.planetNameRandom, planetNameUIColor);
     planet_counter++;
+    newEvent = new Event();
+    eventOpen = true;
   }
 
   void createLevel() {
@@ -144,13 +155,13 @@ class GameSettings {
   void drawEvent() {
     if(eventOpen) {
       shipStateChange();
-      eventPanel.drawEventPanel();
+      newEvent.displayEventMessage();
       eventPanelClosed = false;
     }
   }
   
   void drawPlanetHoverInfo() {
-    if(planetHoverInfoOpen && travelPanelOpen == false && inventoryOpen == false && eventOpen == false) {
+    if(planetHoverInfoOpen && (travelPanelOpen == false || inventoryOpen == false || eventOpen == false)) {
       planetHoverInfo.planetHoverInfo();
     }
   }
@@ -161,5 +172,10 @@ class GameSettings {
     mainShip.shipArrayBottomOpen = false;
     mainShip.shipArrayTopOpen = false;
     mainShip.shipPilotOpen = false;
+  }
+  
+  void planetTransition() {
+    fill(255);
+    rect(0, 0, width, height);
   }
 }

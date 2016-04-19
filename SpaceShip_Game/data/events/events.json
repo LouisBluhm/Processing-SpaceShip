@@ -1,0 +1,38 @@
+{
+	"events": [
+		{
+			"id" : 0,
+			"message" : "You find a large ship drifting in space. It looks abandoned.",
+			"responses" : 
+			[
+				{	"response" :  "Board the ship and search for survivors/resources" },
+				{	"response" :  "Ignore the ship and continue on your way" },
+				{	"response" :  "Null" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "response 1 message"},
+						{	"ship_health" : 50 },
+						{	"crew_health" : -25 },
+						{	"oxygen": 0 },
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "response 2 message"},
+						{	"ship_health" : 2 },
+						{	"crew_health" : -50 },
+						{	"oxygen": 0 },
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "response 3 message"},
+						{	"ship_health" : 3 },
+						{	"crew_health" : -75 },
+						{	"oxygen": 0 },
+					]
+				}, 
+			]
+		}
+	]
+}

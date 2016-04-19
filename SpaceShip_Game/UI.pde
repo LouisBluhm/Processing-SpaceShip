@@ -17,12 +17,12 @@ class UI {
 
   float shipSectionX, shipSectionY;
 
-  PFont font;
+  PFont font, font2;
 
   UI(float _x, float _y, String _title, color _c) {
 
     font = loadFont("SharpRetro-48.vlw");
-    //font = loadFont("KenPixel-48.vlw");
+    font2 = loadFont("KenPixel-48.vlw");
     textFont(font, 140);
 
     x = _x;
@@ -91,33 +91,35 @@ class UI {
     text(string, x, y);
   }
 
-  void eventPanelDisplay() {  
-    eventChecker.displayEventText();
-  }
-  void responsePanelDisplay(int selection) {
-    eventChecker.displayResponseText(selection);
-  }
+  //void eventPanelDisplay() {  
+  //  mainGame.newEvent.displayEventText();
+  //}
+  //void responsePanelDisplay(int selection) {
+  //  mainGame.newEvent.displayResponseText(selection);
+  //}
 
   void drawEventPanel() {
     image(eventPanel, width/2, height/2);
-    if (mainGame.eventResponsesOpen == false) {
-      for (int i = 0; i < eventChecker.response_ypos.length; i++) {
-        if (rectHover(eventChecker.response_xpos, eventChecker.response_ypos[i]-25, 600, 25)) {
-          fill(51, 51, 51);
-          rect(eventChecker.response_xpos, eventChecker.response_ypos[i]-14, 600, 20);
-        }
-        if (rectHover(eventChecker.response_xpos, eventChecker.response_ypos[i]-25, 600, 25) && mousePressed) {
-          mainGame.eventResponsesOpen = true;
-          eventChecker.response_id = i;
-        }
-      }
-      eventPanelDisplay();
-    }
-    if (mainGame.eventResponsesOpen) {
-      responsePanelDisplay(eventChecker.response_id);
-      responsePanelClose();
-    }
   }
+  //  image(eventPanel, width/2, height/2);
+  //  if (mainGame.eventResponsesOpen == false) {
+  //    for (int i = 0; i < mainGame.newEvent.response_ypos.length; i++) {
+  //      if (rectHover(mainGame.newEvent.response_xpos, mainGame.newEvent.response_ypos[i]-25, 600, 25)) {
+  //        fill(51, 51, 51);
+  //        rect(mainGame.newEvent.response_xpos, mainGame.newEvent.response_ypos[i]-14, 600, 20);
+  //      }
+  //      if (rectHover(mainGame.newEvent.response_xpos, mainGame.newEvent.response_ypos[i]-25, 600, 25) && mousePressed) {
+  //        mainGame.eventResponsesOpen = true;
+  //        mainGame.newEvent.response_id = i;
+  //      }
+  //    }
+  //    eventPanelDisplay();
+  //  }
+  //  if (mainGame.eventResponsesOpen) {
+  //    responsePanelDisplay(mainGame.newEvent.response_id);
+  //    responsePanelClose();
+  //  }
+  //}
 
   void responsePanelClose() {
     rectMode(CENTER);

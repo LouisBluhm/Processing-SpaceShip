@@ -52,7 +52,7 @@ class Ship {
     imageMode(CENTER);
     image(ship_selection, shipX, shipY);
 
-    if(mousePressed) {
+    if(mousePressed && mainGame.travelPanelOpen == false && mainGame.eventOpen == false && mainGame.eventResponsesOpen == false) {
       shipEngineSelection();
       shipMainSelection();
       shipPilotSelection();
