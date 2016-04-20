@@ -49,12 +49,16 @@ class Crew {
     if(crewCurrentHealth <= 25) {
       crewCurrentHealthColor = mainGame.verylowHP;
     }
+    if(crewCurrentHealth <= 0) {
+      crewCurrentHealth = 0;
+      crewHealth = 0;
+    }
   }
   
   void draw_crew() {
     check_crew();
     icon(crewIconX, crewIconY);
-    crewInfo.text_string(crewInfo.x, crewInfo.y, crewInfo.title, 16, crewInfo.c, LEFT);
+    crewInfo.text_string(crewInfo.x, crewInfo.y, crewInfo.title, 16, crewInfo.c, LEFT, crewInfo.font);
     status();
     crewInfo.bar(crewNameX, crewNameY+4, crewCurrentHealth * 0.5, 2, crewCurrentHealthColor, 0);
   }
@@ -79,14 +83,14 @@ class Crew {
   
   void draw_crew_detailed() {
     rect(crewIconX+25, crewIconY+50, 150, 200);
-    crewInfo.text_string(crewIconX+30, crewIconY+65, "Name: " + crewName, 20, color(255), LEFT);
-    crewInfo.text_string(crewIconX+30, crewIconY+80, "HP: " + (int)crewCurrentHealth + "%", 20, crewCurrentHealthColor, LEFT);
-    crewInfo.text_string(crewIconX+30, crewIconY+95, "Role: " + crewRole, 20, color(255), LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+65, "Name: " + crewName, 20, color(255), LEFT, crewInfo.font);
+    crewInfo.text_string(crewIconX+30, crewIconY+80, "HP: " + (int)crewCurrentHealth + "%", 20, crewCurrentHealthColor, LEFT, crewInfo.font);
+    crewInfo.text_string(crewIconX+30, crewIconY+95, "Role: " + crewRole, 20, color(255), LEFT, crewInfo.font);
     line(crewIconX+30, crewIconY+105, crewIconX+170, crewIconY+105);
-    crewInfo.text_string(crewIconX+30, crewIconY+125, "INT: " + INT, 20, color(255), LEFT);
-    crewInfo.text_string(crewIconX+30, crewIconY+140, "STR: " + STR, 20, color(255), LEFT);
-    crewInfo.text_string(crewIconX+30, crewIconY+155, "CHAR: " + CHAR, 20, color(255), LEFT);
-    crewInfo.text_string(crewIconX+30, crewIconY+170, "DEX: " + DEX, 20, color(255), LEFT);
+    crewInfo.text_string(crewIconX+30, crewIconY+125, "INT: " + INT, 20, color(255), LEFT, crewInfo.font);
+    crewInfo.text_string(crewIconX+30, crewIconY+140, "STR: " + STR, 20, color(255), LEFT, crewInfo.font);
+    crewInfo.text_string(crewIconX+30, crewIconY+155, "CHAR: " + CHAR, 20, color(255), LEFT, crewInfo.font);
+    crewInfo.text_string(crewIconX+30, crewIconY+170, "DEX: " + DEX, 20, color(255), LEFT, crewInfo.font);
   }
   
 }

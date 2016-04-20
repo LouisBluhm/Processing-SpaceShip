@@ -12,23 +12,57 @@
 			"stats" : 
 			[
 				{	"response" : [
-						{	"message" : "response 1 message"},
-						{	"ship_health" : 50 },
-						{	"crew_health" : -25 },
+						{	"message" : "As you search the ship an old fuel tank explodes. Your boarding crew suffer heavy damage and barely escape."},
+						{	"ship_health" : -5 },
+						{	"crew_health" : -40 },
 						{	"oxygen": 0 },
 					]
 				}, 
 				{	"response" : [
-						{	"message" : "response 2 message"},
-						{	"ship_health" : 2 },
-						{	"crew_health" : -50 },
+						{	"message" : "The abandoned ship drifts into the distance and fills you with determination"},
+						{	"ship_health" : 0 },
+						{	"crew_health" : 25 },
 						{	"oxygen": 0 },
 					]
 				}, 
 				{	"response" : [
-						{	"message" : "response 3 message"},
-						{	"ship_health" : 3 },
-						{	"crew_health" : -75 },
+						{	"message" : "Null"},
+						{	"ship_health" : 0 },
+						{	"crew_health" : -10 },
+						{	"oxygen": 0 },
+					]
+				}, 
+			]
+		},
+	{
+			"id" : 1,
+			"message" : "You are hailed by a pirate vessel. Their guns are ready to fire.",
+			"responses" : 
+			[
+				{	"response" :  "Prepare to attack" },
+				{	"response" :  "Attempt to flee" },
+				{	"response" :  "Try and talk to the pirate leader" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "You realise you have no weapons and take heavy damage" },
+						{	"ship_health" : -50 },
+						{	"crew_health" : -20 },
+						{	"oxygen": -40 },
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "As you speed away you are hit by a pirate rocket" },
+						{	"ship_health" : -50 },
+						{	"crew_health" : 0 },
+						{	"oxygen": -10 },
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The pirates listen to your emotional speech and leave you be" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 					]
 				}, 

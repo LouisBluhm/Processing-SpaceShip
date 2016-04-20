@@ -22,8 +22,10 @@ class UI {
   UI(float _x, float _y, String _title, color _c) {
 
     font = loadFont("SharpRetro-48.vlw");
-    font2 = loadFont("KenPixel-48.vlw");
-    textFont(font, 140);
+    font2 = loadFont("pixelmix-bold-14.vlw");
+    
+    // font2 = loadFont("KenPixel-48.vlw");
+    // textFont(font, 140);
 
     x = _x;
     y = _y;
@@ -48,6 +50,7 @@ class UI {
   }
 
   void draw() {
+    textFont(font, 140);
     fill(c);
     textAlign(0);
     textSize(19);
@@ -74,52 +77,17 @@ class UI {
     //image(panel2, width/2, height/2);
   }
 
-  void button(float buttonX, float buttonY) {
-    if (mainGame.buttonHover == false) {
-      image(panel2, buttonX, buttonY);
-    }
-    if (mainGame.buttonHover == true) {
-      image(panel2hover, buttonX, buttonY);
-    }
-    text_string(buttonX, buttonY + 5, title, 19, color(255), CENTER);
-  }
-
-  void text_string(float x, float y, String string, int font_size, color c, int align) {
+  void text_string(float x, float y, String string, int font_size, color c, int align, PFont text_font) {
+    textFont(text_font, 140);
     fill(c);
     textAlign(align);
     textSize(font_size);
     text(string, x, y);
   }
 
-  //void eventPanelDisplay() {  
-  //  mainGame.newEvent.displayEventText();
-  //}
-  //void responsePanelDisplay(int selection) {
-  //  mainGame.newEvent.displayResponseText(selection);
-  //}
-
   void drawEventPanel() {
     image(eventPanel, width/2, height/2);
   }
-  //  image(eventPanel, width/2, height/2);
-  //  if (mainGame.eventResponsesOpen == false) {
-  //    for (int i = 0; i < mainGame.newEvent.response_ypos.length; i++) {
-  //      if (rectHover(mainGame.newEvent.response_xpos, mainGame.newEvent.response_ypos[i]-25, 600, 25)) {
-  //        fill(51, 51, 51);
-  //        rect(mainGame.newEvent.response_xpos, mainGame.newEvent.response_ypos[i]-14, 600, 20);
-  //      }
-  //      if (rectHover(mainGame.newEvent.response_xpos, mainGame.newEvent.response_ypos[i]-25, 600, 25) && mousePressed) {
-  //        mainGame.eventResponsesOpen = true;
-  //        mainGame.newEvent.response_id = i;
-  //      }
-  //    }
-  //    eventPanelDisplay();
-  //  }
-  //  if (mainGame.eventResponsesOpen) {
-  //    responsePanelDisplay(mainGame.newEvent.response_id);
-  //    responsePanelClose();
-  //  }
-  //}
 
   void responsePanelClose() {
     rectMode(CENTER);
@@ -129,10 +97,10 @@ class UI {
       fill(51, 51, 51);
     } 
     rect(width/2, height/2+180, 200, 25);
-    text_string(width/2, height/2+185, "Click here to close", 22, color(255), CENTER);
+    text_string(width/2, height/2+185, "Click here to close", 12, color(255), CENTER, font2);
     if (rectHover(width/2-100, height/2+170, 200, 25) && mousePressed) {
-      mainGame.eventOpen = false;
       mainGame.eventPanelClosed = true;
+      mainGame.eventOpen = false;
     }
   }
 
@@ -140,42 +108,6 @@ class UI {
     image(shipSectionPanel, shipSectionX, shipSectionY);
     mainShip.shipSectionDraw();
   }
-
-  //void travelPanelDisplay() {
-  //  image(travelPanel, width/2, height/2);
-  //  travelPanelSelection();
-  //}
-
-  //void travelPanelSelection() {
-  //  float[] travelID = {400, height/2, 500, height/2+75, 600, height/2-50, 650, height/2+10, 770, height/2-150, 800, height/2+200};
-  //  int systemSize = 10;
-  //  // String planet1 = mainGame.planetNameRandom;
-  //  //translate(width/2, height/2);
-  //  fill(255);
-
-  //  for (int i = 0; i < travelID.length; i += 2) {
-  //    ellipse(travelID[i], travelID[i+1], systemSize, systemSize);
-  //    text_string(width/2-450, height/2+235, "Select planet: ", 25, color(255), LEFT);
-  //    if (hoverDetection(travelID[i], travelID[i+1], systemSize)) {
-  //      // imageMode(CORNER);
-  //      // image(travelHover, travelID[i], travelID[i+1]);
-  //      text_string(width/2-450, height/2+235, "Select planet: " + mainGame.planet.planetNameRandom, 25, color(255), LEFT);
-  //      ellipse(travelID[i], travelID[i+1], 12, 12);
-  //      line(travelID[i], travelID[i+1], travelID[i+2], travelID[i+3]);
-        
-  //      if(mousePressed) {
-  //        mainGame.createPlanet();
-  //        mainGame.travelPanelOpen = false;
-  //      }
-        
-  //    }
-  //  }
-  //}
-
-  //void travelPlanetInfo(float x, float y, int planetNum) {
-  //  mainGame.travelInfo.modal(x, y, 50, 50, color(89, 89, 89));
-  //  mainGame.travelInfo.text_string(x, y, mainGame.planet.planetNames[planetNum], 12, color(255), CENTER);
-  //}
 
   boolean hoverDetection(float x, float y, float diameter) {
     if (dist(mouseX, mouseY, x, y) < diameter * 0.5) {
@@ -194,12 +126,12 @@ class UI {
     int textSizePlanet = 24;
     line(textX, y-145, textXside, y-145);
     //Planet name
-    text_string(textX, y-150, "Planet: ", textSizePlanet, c, LEFT);
-    text_string(textXside, y-150, mainGame.planet.planetNameRandom, textSizePlanet, c, RIGHT);
+    text_string(textX, y-150, "Planet: ", textSizePlanet, c, LEFT, font);
+    text_string(textXside, y-150, mainGame.planet.planetNameRandom, textSizePlanet, c, RIGHT, font);
     //Species + Hostility
-    text_string(textX, y-120, "Main Species: ", textSize, c, LEFT);
-    text_string(textXside, y-120, mainGame.planet.planetSpeciesRandom, textSize, c, RIGHT);
-    text_string(textX, y-100, "Hostility: ", textSize, c, LEFT);
+    text_string(textX, y-120, "Main Species: ", textSize, c, LEFT, font);
+    text_string(textXside, y-120, mainGame.planet.planetSpeciesRandom, textSize, c, RIGHT, font);
+    text_string(textX, y-100, "Hostility: ", textSize, c, LEFT, font);
 
     if (mainGame.planet.planetSpeciesHostility.equals("DANGEROUS")) {
       hostility = color(255, 0, 0);
@@ -213,15 +145,15 @@ class UI {
     if (mainGame.planet.planetSpeciesHostility.equals("N/A")) {
       hostility = color(150, 76, 150);
     }
-    text_string(textXside, y-100, mainGame.planet.planetSpeciesHostility, textSize, hostility, RIGHT);
+    text_string(textXside, y-100, mainGame.planet.planetSpeciesHostility, textSize, hostility, RIGHT, font);
 
 
     //Other
-    text_string(textX, y-60, "Circumference: ", textSize, c, LEFT);
-    text_string(textXside, y-60, mainGame.planet.planetCircumference + " km", textSize, c, RIGHT);
-    text_string(textX, y-40, "Axial Tilt: ", textSize, c, LEFT);
-    text_string(textXside, y-40, mainGame.planet.planetTilt + " RAD", textSize, c, RIGHT);
-    text_string(textX, y-20, "Surface Temp: ", textSize, c, LEFT);
-    text_string(textXside, y-20, mainGame.planet.planetTemperature + " DEG", textSize, c, RIGHT);
+    text_string(textX, y-60, "Circumference: ", textSize, c, LEFT, font);
+    text_string(textXside, y-60, mainGame.planet.planetCircumference + " km", textSize, c, RIGHT, font);
+    text_string(textX, y-40, "Axial Tilt: ", textSize, c, LEFT, font);
+    text_string(textXside, y-40, mainGame.planet.planetTilt + " RAD", textSize, c, RIGHT, font);
+    text_string(textX, y-20, "Surface Temp: ", textSize, c, LEFT, font);
+    text_string(textXside, y-20, mainGame.planet.planetTemperature + " DEG", textSize, c, RIGHT, font);
   }
 }

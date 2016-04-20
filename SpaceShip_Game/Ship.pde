@@ -51,8 +51,10 @@ class Ship {
   void draw() {
     imageMode(CENTER);
     image(ship_selection, shipX, shipY);
+    
+    println((int)random(0, 3));
 
-    if(mousePressed && mainGame.travelPanelOpen == false && mainGame.eventOpen == false && mainGame.eventResponsesOpen == false) {
+    if(mousePressed && (mainGame.eventOpen == false || mainGame.eventPanelClosed == true)) {
       shipEngineSelection();
       shipMainSelection();
       shipPilotSelection();
@@ -63,9 +65,9 @@ class Ship {
   }
   
   void shipSectionDraw() {
-    shipSection.text_string(shipSection.x, shipSection.y, "Section: " + shipCurrentSection, 26, shipSection.c, LEFT);
-    shipSection.text_string(shipSection.x, shipSection.y + 25, "Condition: ", 21, color(255), LEFT);
-    shipSection.text_string(shipSection.x + 110, shipSection.y + 25, "" + shipCurrentSectionHP, 21, colorHealthChanger(shipCurrentSectionHP), LEFT);
+    shipSection.text_string(shipSection.x, shipSection.y, "Section: " + shipCurrentSection, 26, shipSection.c, LEFT, shipSection.font);
+    shipSection.text_string(shipSection.x, shipSection.y + 25, "Condition: ", 21, color(255), LEFT, shipSection.font);
+    shipSection.text_string(shipSection.x + 110, shipSection.y + 25, "" + shipCurrentSectionHP, 21, colorHealthChanger(shipCurrentSectionHP), LEFT, shipSection.font);
   }
   
   color colorHealthChanger(float hp) {

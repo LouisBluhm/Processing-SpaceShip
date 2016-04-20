@@ -29,7 +29,9 @@ class GameSettings {
   color loss = color(255, 0, 0);
   
   //UI Fonts
-  int event_log_size = 24;
+  int event_log_size = 14;
+  int event_message_size = 14;
+  int event_choice_size = 12;
 
   //Create a planet object
   Planet planet;
@@ -50,6 +52,7 @@ class GameSettings {
   boolean eventPanelClosed = true;
   boolean planetHoverInfoOpen = false;
   boolean eventResponsesOpen = false;
+  boolean create_planet = true;
 
   //Game default config
   float resourceTimer;
@@ -62,8 +65,7 @@ class GameSettings {
   int planet_counter;
 
   GameSettings() {
-    //Create a random planet object
-    //planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2));
+        
     createPlanet();
     
     //Create the crew objects
@@ -78,7 +80,9 @@ class GameSettings {
     shipDisplayPanel = new UI(0, 0, "Section", color(255));
     health = new UI(20, 20, "Health (" + shipHealthCurrent + " / " + shipHealth + ")", shipHealthColor);
     oxygen = new UI(20, 55, "Oxygen (" + shipOxygenCurrent + " / " + shipOxygen + ")", shipOxygenColor);
-    ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
+    
+    // ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
+    
     travelMenu = new UI(0, 0, "travelMenu", color(255));
     travelInfo = new UI(0, 0, "travelInfo", color(255));
     eventPanel = new UI(0, 0, "eventPanel", color(255));
@@ -94,6 +98,9 @@ class GameSettings {
     planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2), planet_counter);
     planetNameUI = new UI(20, 90, "Planet: " + planet.planetNameRandom, planetNameUIColor);
     planet_counter++;
+  }
+  
+  void startNewEvent() {
     newEvent = new Event();
     eventOpen = true;
   }
@@ -110,8 +117,10 @@ class GameSettings {
     oxygen.draw();
     oxygen.bar(20, 60, shipOxygenCurrent, 10, shipOxygenColor, 100);
     planetNameUI.draw();
-    ftl_travel.button(1300, 40);
-    if(mainShip.shipEngineOpen || mainShip.shipMainOpen || mainShip.shipArrayTopOpen || mainShip.shipArrayBottomOpen || mainShip.shipPilotOpen && travelPanelOpen == false && inventoryOpen == false && eventOpen == false) {
+    
+    // ftl_travel.button(1300, 40);
+    
+    if((mainShip.shipEngineOpen || mainShip.shipMainOpen || mainShip.shipArrayTopOpen || mainShip.shipArrayBottomOpen || mainShip.shipPilotOpen) && travelPanelOpen == false) {
      shipDisplayPanel.shipSectionDisplay();
     }
     drawTravelMenu();
@@ -138,7 +147,9 @@ class GameSettings {
   }
   
   void drawTravelMenu() {
+    travel.drawTravelButton();
     if(travelPanelOpen) {
+      // travel.closeTravelButton();
       shipStateChange();
       travel.draw();
       // travelMenu.travelPanelDisplay();
@@ -161,7 +172,8 @@ class GameSettings {
   }
   
   void drawPlanetHoverInfo() {
-    if(planetHoverInfoOpen && (travelPanelOpen == false || inventoryOpen == false || eventOpen == false)) {
+    if(planetHoverInfoOpen && travelPanelOpen == false && eventOpen == false) {
+    // if(planetHoverInfoOpen && (travelPanelOpen == false || inventoryOpen == false || eventOpen == false)) {
       planetHoverInfo.planetHoverInfo();
     }
   }

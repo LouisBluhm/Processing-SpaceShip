@@ -83,7 +83,7 @@ class Planet {
   }
   
   void planetInfo() {
-    if(ellipseHover(1025, height/2, planetRadius) && mainGame.travelPanelOpen == false && mainGame.eventOpen == false && mainGame.eventResponsesOpen == false) {
+    if(ellipseHover(1025, height/2, planetRadius)) {
       mainGame.planetHoverInfoOpen = true;
     } else {
       mainGame.planetHoverInfoOpen = false;
