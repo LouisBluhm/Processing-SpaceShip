@@ -1,6 +1,6 @@
 class GameSettings {
 
-  //UI objects
+  //  UI objects
   UI health, oxygen, planetNameUI, ftl_travel, modal1, shipDisplayPanel;
   UI travelMenu;
   UI travelInfo;
@@ -8,17 +8,17 @@ class GameSettings {
   UI planetHoverInfo;
   boolean buttonHover = false;
   
-  //Inventory
+  //  Inventory
   Inventory inventory;
   
-  //Ship configurations
+  //  Ship configurations
   int shipHealth = 300;
   int shipHealthCurrent = 300;
 
   int shipOxygen = 100;
   int shipOxygenCurrent = 100;
 
-  //UI Colors
+  //  UI Colors
   color shipHealthColor = color(0, 255, 0);
   color shipOxygenColor = color(114, 188, 212);
   color planetNameUIColor = color(255);
@@ -28,24 +28,28 @@ class GameSettings {
   color gain = color(0, 255, 0);
   color loss = color(255, 0, 0);
   
-  //UI Fonts
+  //  UI Fonts
   int event_log_size = 14;
   int event_message_size = 14;
   int event_choice_size = 12;
 
-  //Create a planet object
+  //  Create a planet object
   Planet planet;
   
-  //Crew
-  Crew crew1, crew2, crew3;
+  //  Crew
+  // Crew crew1, crew2, crew3;
+  // Crew[] crew;
+  ArrayList<Crew> crew = new ArrayList<Crew>();
   
-  //Travel window object
+  //  Travel window object
   Travel travel;
   
-  //Create random event object;
+  //  Create random event object;
   Event newEvent;
   
-  //Game states
+  GameOver mainGameOver;
+  
+  // Game states
   boolean travelPanelOpen = false;
   boolean inventoryOpen = false;
   boolean eventOpen = false;
@@ -53,42 +57,47 @@ class GameSettings {
   boolean planetHoverInfoOpen = false;
   boolean eventResponsesOpen = false;
   boolean create_planet = true;
+  
+  boolean game_over = false;
 
-  //Game default config
+  // Game default config
   float resourceTimer;
   boolean audioMuted = false;
   
-  //Load Images
-  PImage defaultPointer;
+  // Load Images
+  PImage defaultPointer, game_over_background;
   
-  //test vars
+  // test vars
   int planet_counter;
 
   GameSettings() {
         
     createPlanet();
     
-    //Create the crew objects
-    crew1 = new Crew("Walker", "Engineer", 400, 10, 400, 45);
-    crew2 = new Crew("Andez", "Physicist", 460, 10, 460, 45);
-    crew3 = new Crew("Cooper", "Pilot", 520, 10, 520, 45);
+    // Create the crew objects
+    //crew1 = new Crew("Walker", "Engineer", 400, 10, 400, 45);
+    //crew2 = new Crew("Andez", "Physicist", 460, 10, 460, 45);
+    //crew3 = new Crew("Cooper", "Pilot", 520, 10, 520, 45);
+    crew.add(new Crew("Walker", "Engineer", 400, 10, 400, 45));
+    crew.add(new Crew("Andez", "Physicist", 460, 10, 460, 45));
+    crew.add(new Crew("Cooper", "Pilot", 520, 10, 520, 45));
     
-    //Load cursor image
+    // Load cursor image
     defaultPointer = loadImage("pointer_shadow.png");
     
-    //Create various UI elements
+    // Create various UI elements
     shipDisplayPanel = new UI(0, 0, "Section", color(255));
     health = new UI(20, 20, "Health (" + shipHealthCurrent + " / " + shipHealth + ")", shipHealthColor);
     oxygen = new UI(20, 55, "Oxygen (" + shipOxygenCurrent + " / " + shipOxygen + ")", shipOxygenColor);
     
-    // ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
+    //  ftl_travel = new UI(0, 0, "HYPERSPACE", color(255));
     
     travelMenu = new UI(0, 0, "travelMenu", color(255));
     travelInfo = new UI(0, 0, "travelInfo", color(255));
     eventPanel = new UI(0, 0, "eventPanel", color(255));
     planetHoverInfo = new UI(1200, height/2 + 200, "planetHoverinfo", color(255));
     
-    //Create various objects
+    // Create various objects
     inventory = new Inventory();
     travel = new Travel();
   }
@@ -111,6 +120,15 @@ class GameSettings {
     drawCursor(1);
   }
   
+  void gameOver() {
+    if(game_over == false) {
+      println("[INFO] Game over state started");
+      mainGameOver = new GameOver();
+      game_over_music.loop();
+      game_over = true;
+    }
+  }
+  
   void drawUI() {
     health.draw();
     health.bar(20, 25, shipHealthCurrent, 10, shipHealthColor, 300);
@@ -118,7 +136,7 @@ class GameSettings {
     oxygen.bar(20, 60, shipOxygenCurrent, 10, shipOxygenColor, 100);
     planetNameUI.draw();
     
-    // ftl_travel.button(1300, 40);
+    //  ftl_travel.button(1300, 40);
     
     if((mainShip.shipEngineOpen || mainShip.shipMainOpen || mainShip.shipArrayTopOpen || mainShip.shipArrayBottomOpen || mainShip.shipPilotOpen) && travelPanelOpen == false) {
      shipDisplayPanel.shipSectionDisplay();
@@ -131,9 +149,12 @@ class GameSettings {
   }
   
   void drawCrew() {
-    crew1.draw_crew();
-    crew2.draw_crew();
-    crew3.draw_crew();
+    //crew1.draw_crew();
+    //crew2.draw_crew();
+    //crew3.draw_crew();
+    for(Crew members : crew) {
+      members.draw_crew();
+    }
   }
   
   void drawCursor(float cursor) {
@@ -149,10 +170,10 @@ class GameSettings {
   void drawTravelMenu() {
     travel.drawTravelButton();
     if(travelPanelOpen) {
-      // travel.closeTravelButton();
+      //  travel.closeTravelButton();
       shipStateChange();
       travel.draw();
-      // travelMenu.travelPanelDisplay();
+      //  travelMenu.travelPanelDisplay();
     }
   }
   
@@ -173,7 +194,7 @@ class GameSettings {
   
   void drawPlanetHoverInfo() {
     if(planetHoverInfoOpen && travelPanelOpen == false && eventOpen == false) {
-    // if(planetHoverInfoOpen && (travelPanelOpen == false || inventoryOpen == false || eventOpen == false)) {
+     // if(planetHoverInfoOpen && (travelPanelOpen == false || inventoryOpen == false || eventOpen == false)) {
       planetHoverInfo.planetHoverInfo();
     }
   }

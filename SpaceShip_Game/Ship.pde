@@ -11,6 +11,8 @@ class Ship {
   boolean shipArrayTopOpen = false;
   boolean shipArrayBottomOpen = false;
   
+  boolean shipAlive = true;
+  
   //Ship stats
   String[] shipSections = {"Engines", "Crew Quarters", "Bridge", "Solar Array 1", "Solar Array 2"};
   float shipEngineHP = 100;
@@ -51,8 +53,6 @@ class Ship {
   void draw() {
     imageMode(CENTER);
     image(ship_selection, shipX, shipY);
-    
-    println((int)random(0, 3));
 
     if(mousePressed && (mainGame.eventOpen == false || mainGame.eventPanelClosed == true)) {
       shipEngineSelection();
@@ -61,6 +61,13 @@ class Ship {
       shipArraySelection();
     } else {
       ship_selection = shipImageDefault;
+    }
+    checkStatus();
+  }
+  
+  void checkStatus() {
+    if(mainGame.shipHealthCurrent <= 0) {
+      shipAlive = false;
     }
   }
   

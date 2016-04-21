@@ -101,6 +101,9 @@ class UI {
     if (rectHover(width/2-100, height/2+170, 200, 25) && mousePressed) {
       mainGame.eventPanelClosed = true;
       mainGame.eventOpen = false;
+      if(mainShip.shipAlive == false) {
+        mainGame.gameOver();
+      }
     }
   }
 

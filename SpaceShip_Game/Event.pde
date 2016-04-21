@@ -56,11 +56,17 @@ class Event {
 
     // Get a random event
     events_length = events.size();
+    
+    println("[DEBUG] " + events_length + " events found in data file");
+    
     event = events.getJSONObject((int)random(events_length));
     // println("[DEBUG] New event : " + event);
 
     // Get the main event message and id
     event_id = event.getInt("id");
+    
+    
+    
     event_message = event.getString("message");
     println("[DEBUG] New event message: " + event_message);
 
@@ -149,11 +155,11 @@ class Event {
       // Logging for crew members
       switch(crew_stat_change) {
         case 0:
-          eventStatsLogsCrew(responses_crew_health[player_choice], mainGame.crew1, 0);
+          eventStatsLogsCrew(responses_crew_health[player_choice], mainGame.crew.get(0), 0);
         case 1:
-        eventStatsLogsCrew(responses_crew_health[player_choice], mainGame.crew2, 1);
+          eventStatsLogsCrew(responses_crew_health[player_choice], mainGame.crew.get(1), 1);
         case 2:
-        eventStatsLogsCrew(responses_crew_health[player_choice], mainGame.crew3, 2);
+          eventStatsLogsCrew(responses_crew_health[player_choice], mainGame.crew.get(2), 2);
       }
       eventMessage.responsePanelClose();
     }
@@ -167,11 +173,11 @@ class Event {
 
     switch(crew_stat_change) {
     case 0: 
-      mainGame.crew1.changeHealth(responses_crew_health[player_choice]);
+      mainGame.crew.get(0).changeHealth(responses_crew_health[player_choice]);
     case 1: 
-      mainGame.crew2.changeHealth(responses_crew_health[player_choice]);
+      mainGame.crew.get(1).changeHealth(responses_crew_health[player_choice]);
     case 2: 
-      mainGame.crew3.changeHealth(responses_crew_health[player_choice]);
+      mainGame.crew.get(2).changeHealth(responses_crew_health[player_choice]);
     }
 
     if (!(mainGame.shipOxygenCurrent + responses_oxygen[player_choice] >= mainGame.shipOxygen)) {
@@ -203,6 +209,10 @@ class Event {
       if (change < 0) {
         log_output = player.crewName + " : " + change;
         change_color = mainGame.loss;
+        if(player.alive == false) {
+          // println("[DEBUG] Player " + player.crewName + " is dead");
+          log_output = player.crewName + " is dead.";
+        }
       }
       eventMessage.text_string(width/2, crew_logs_ypos[y_index], log_output, mainGame.event_log_size, change_color, CENTER, eventMessage.font2);
     }

@@ -1,6 +1,6 @@
 class Crew {
   
-  PImage crew_icon;
+  PImage crew_icon, crew_icon_dead;
   
   //Crew settings
   color crewCurrentHealthColor = color(0, 255, 0);  
@@ -12,6 +12,7 @@ class Crew {
   float crewHealth = 100;
   float crewCurrentHealth = 100;
   int INT, STR, CHAR, DEX;
+  boolean alive = true;
   
   UI crewInfo;  
   
@@ -24,12 +25,14 @@ class Crew {
     crewNameX = _crewNameX;
     crewNameY = _crewNameY;
     
+    // Assign random int stats for each crew member
     INT = (int)random(1, 6);
     STR = (int)random(1, 6);
     CHAR = (int)random(1, 6);
     DEX = (int)random(1, 6);
     
     crew_icon = loadImage("crew_icon.png");
+    crew_icon_dead = loadImage("crew_icon_dead.png");
     
     crewInfo = new UI(crewNameX, crewNameY, crewName, color(255));
   }
@@ -61,10 +64,14 @@ class Crew {
     crewInfo.text_string(crewInfo.x, crewInfo.y, crewInfo.title, 16, crewInfo.c, LEFT, crewInfo.font);
     status();
     crewInfo.bar(crewNameX, crewNameY+4, crewCurrentHealth * 0.5, 2, crewCurrentHealthColor, 0);
+    if(alive == false) {
+      crew_icon = crew_icon_dead;
+      crewInfo.c = color(255, 0, 0);
+    }
   }
 
   void check_crew() {
-    if(rectHover(crewIconX, crewIconY, 50, 50) && mainGame.eventOpen == false) {
+    if(rectHover(crewIconX, crewIconY, 50, 50) && mainGame.eventOpen == false && alive == true) {
       stroke(114, 188, 212);
       fill(51, 51, 51);
       rect(crewIconX, crewIconY, 50, 50);
@@ -78,6 +85,9 @@ class Crew {
    println("[INFO] Changing health of " + this.getClass().getCanonicalName() + " by " + amount);
    if(!(crewCurrentHealth + amount >= crewHealth)) {
      crewCurrentHealth += amount;
+   }
+   if(crewCurrentHealth + amount <= 0) {
+     alive = false;
    }
   }
   
