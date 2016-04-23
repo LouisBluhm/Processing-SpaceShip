@@ -2,17 +2,18 @@ class Crew {
   
   PImage crew_icon, crew_icon_dead;
   
-  //Crew settings
+  // Crew settings
   color crewCurrentHealthColor = color(0, 255, 0);  
   float crewNameX, crewNameY;
   float crewIconX, crewIconY;
   
-  //Crew stats
+  // Crew stats
   String crewName, crewRole;
   float crewHealth = 100;
   float crewCurrentHealth = 100;
   int INT, STR, CHAR, DEX;
   boolean alive = true;
+  boolean stat_increase = false;
   
   UI crewInfo;  
   
@@ -55,6 +56,16 @@ class Crew {
     if(crewCurrentHealth <= 0) {
       crewCurrentHealth = 0;
       crewHealth = 0;
+    }
+    if(mainGame.planet.planetCount % 2 == 0 && stat_increase) {
+      int stat_incr = (int)random(0, 4);
+      switch(stat_incr) {
+        case 0: INT++;
+        case 1: STR++;
+        case 2: CHAR++;
+        case 3: DEX++;
+      }
+      stat_increase = false;
     }
   }
   

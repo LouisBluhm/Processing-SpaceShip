@@ -29,9 +29,7 @@ class GameOver {
     }
     
     gameOverText.text_string(gameOverText.x, gameOverText.y + 25, "You had " + crew_alive + " crew remaining", 24, gameOverText.c, CENTER, gameOverText.font);
-    
     gameOverText.text_string(gameOverText.x, gameOverText.y + 50, "Your score is " + score, 24, gameOverText.c, CENTER, gameOverText.font);
-    
     gameOverText.text_string(gameOverText.x, gameOverText.y + 100, "Click anywhere to quit", 22, gameOverText.c, CENTER, gameOverText.font);
     
     if(mousePressed) {

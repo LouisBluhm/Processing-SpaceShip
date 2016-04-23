@@ -1,5 +1,5 @@
 class GameSettings {
-
+  
   //  UI objects
   UI health, oxygen, planetNameUI, ftl_travel, modal1, shipDisplayPanel;
   UI travelMenu;
@@ -30,22 +30,27 @@ class GameSettings {
   
   //  UI Fonts
   int event_log_size = 14;
-  int event_message_size = 14;
+  int event_message_size = 13;
   int event_choice_size = 12;
 
   //  Create a planet object
   Planet planet;
   
-  //  Crew
-  // Crew crew1, crew2, crew3;
-  // Crew[] crew;
+  // Crew
   ArrayList<Crew> crew = new ArrayList<Crew>();
   
-  //  Travel window object
+  // Stats for generating new crew members
+  String[] crew_names = {"Murph", "Ripley", "Watney", "Ramirez"};
+  String[] crew_roles = {"Pilot", "Biologist", "Soldier", "Engineer"};
+  int last_crew_position_x = 520;
+  
+  // Travel window object
   Travel travel;
   
-  //  Create random event object;
+  // Create random event object and event checking storage;
   Event newEvent;
+  ArrayList<Integer> events_to_check = new ArrayList<Integer>();
+  boolean event_fill_done = false;
   
   GameOver mainGameOver;
   

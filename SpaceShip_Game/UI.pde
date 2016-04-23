@@ -104,6 +104,15 @@ class UI {
       if(mainShip.shipAlive == false) {
         mainGame.gameOver();
       }
+      for(int i = 0; i < mainGame.crew.size(); i++) {
+        mainGame.crew.get(i).stat_increase = true;
+      }
+      if(mainGame.newEvent.crew_gained) {
+        mainGame.crew.add(new Crew(mainGame.crew_names[(int)(Math.random() * mainGame.crew_names.length)], mainGame.crew_roles[(int)(Math.random() * mainGame.crew_roles.length)], mainGame.last_crew_position_x + 60, 10, mainGame.last_crew_position_x + 60, 45));
+        mainGame.last_crew_position_x += 60;
+        mainGame.newEvent.crew_gained = false;
+       // planetNames[(int)(Math.random() * planetNames.length)];
+      }
     }
   }
 

@@ -29,10 +29,12 @@ class Ship {
   float shipArrayBottomCurrentHP = 100;
   String shipCurrentSection;
   float shipCurrentSectionHP;
-
-  Players player1 = new Players(width/2, height/2, 5);       
+  
+  int shipMissiles = 5;
+  
   UI shipSection;
   
+  Weapon weapon1;
 
   Ship(float _shipX, float _shipY) {
 
@@ -48,6 +50,8 @@ class Ship {
     ship_selection = shipImageDefault;
     
     shipSection = new UI(width/2-700, height/2+225, null, color(255));
+    
+    weapon1 = new Weapon(800, 25, "missile");
   }
 
   void draw() {
@@ -63,6 +67,8 @@ class Ship {
       ship_selection = shipImageDefault;
     }
     checkStatus();
+    
+    weapon1.draw();
   }
   
   void checkStatus() {

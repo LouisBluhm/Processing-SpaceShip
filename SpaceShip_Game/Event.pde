@@ -7,20 +7,24 @@ class Event {
   int event_id;
   int player_choice;
   String event_message;
+  String[] split_event_message;
   boolean event_stats_done = false;
   String ship_health_output;
 
   String[] choice_text;
-  String[] stats_to_get = {"message", "ship_health", "crew_health", "oxygen"};
+  String[] stats_to_get = {"message", "ship_health", "crew_health", "oxygen", "missiles", "crew_gain"};
 
   JSONObject[] response_objects;
   JSONArray[] response_object_array;
   JSONObject[] object_responses;
 
   String[] responses;
+  String[] split_responses;
   int[] responses_ship_health;
   int[] responses_crew_health;
   int[] responses_oxygen;
+  int[] responses_missiles;
+  int[] responses_crew_gain;
 
   // Create UI objects
   UI eventMessage;
@@ -35,6 +39,13 @@ class Event {
   boolean event_message_open = false;
   int crew_stat_change;
   boolean[] event_parse_check;
+  boolean crew_gained = false;
+  
+  int event_to_get;
+  
+  // String searching
+  int message_count = 0;
+  int response_count = 0;
 
   Event() {
     // Create empty arrays/json objects
@@ -46,6 +57,8 @@ class Event {
     responses_ship_health = new int[3];
     responses_crew_health = new int[3];
     responses_oxygen = new int[3];
+    responses_missiles = new int[3];
+    responses_crew_gain = new int[3];
     event_parse_check = new boolean[3];
     
     // Load the main JSON file
@@ -56,24 +69,37 @@ class Event {
 
     // Get a random event
     events_length = events.size();
-    
     println("[DEBUG] " + events_length + " events found in data file");
     
-    event = events.getJSONObject((int)random(events_length));
-    // println("[DEBUG] New event : " + event);
+    if(mainGame.event_fill_done == false) {
+      for(int i = 0; i < events_length; i++) {
+        mainGame.events_to_check.add(i);
+        
+      }
+      mainGame.event_fill_done = true;
+    }
+    
+    // event_to_get = (int)random(mainGame.events_to_check.get());
+    int test = (int)random(mainGame.events_to_check.size());
+    event_to_get = mainGame.events_to_check.get(test);
+    
+    println("[DEBUG] Event chosen: " + event_to_get + " from " + mainGame.events_to_check.size() + " possible events");
 
     // Get the main event message and id
+    event = events.getJSONObject(event_to_get);
     event_id = event.getInt("id");
-    
-    
-    
+
+    split_event_message = new String[(int)events_length];    
     event_message = event.getString("message");
     println("[DEBUG] New event message: " + event_message);
+    
+    split_event_message = split(event_message, '.');
+    message_count = stringSearch(event_message, ".");
 
     // Get an array of responses for an event
     choices = event.getJSONArray("responses");
     stats_array = event.getJSONArray("stats");
-
+    
     // Load the response data into an array
     for (int i = 0; i < choices.size(); i++) {
       choice_text[i] = choices.getJSONObject(i).getString("response");
@@ -87,11 +113,15 @@ class Event {
       responses_ship_health[i] = response_object_array[i].getJSONObject(1).getInt(stats_to_get[1]);
       responses_crew_health[i] = response_object_array[i].getJSONObject(2).getInt(stats_to_get[2]);
       responses_oxygen[i] = response_object_array[i].getJSONObject(3).getInt(stats_to_get[3]);
+      responses_missiles[i] = response_object_array[i].getJSONObject(4).getInt(stats_to_get[4]);
+      responses_crew_gain[i] = response_object_array[i].getJSONObject(5).getInt(stats_to_get[5]);
     }
 
-    eventMessage = new UI(width/2, height/2-100, event_message, color(255));
+    eventMessage = new UI(width/2, height/2-100, split_event_message[0], color(255));
     timer = second();
     crew_stat_change = (int)random(0, 3);
+    
+    mainGame.events_to_check.remove(test);
   }
 
   void displayEventMessage() {
@@ -104,6 +134,9 @@ class Event {
       
       if (mainGame.eventResponsesOpen == false) {
         eventMessage.text_string(eventMessage.x, eventMessage.y, eventMessage.title, mainGame.event_message_size, eventMessage.c, CENTER, eventMessage.font2);
+        if(message_count >= 1) {
+          eventMessage.text_string(eventMessage.x, eventMessage.y + 25, split_event_message[1], mainGame.event_message_size, eventMessage.c, CENTER, eventMessage.font2);
+        }
         eventMessageHover();
         for (int i = 0; i < 3; i++) {
           eventMessage.text_string(response_xpos, response_ypos[i], eventParse(choice_text[i], i), mainGame.event_choice_size, eventMessage.c, LEFT, eventMessage.font2);
@@ -137,8 +170,21 @@ class Event {
       return "";
     } else {
       event_parse_check[parse_checker_position] = true;
-      return text;
+      return (parse_checker_position+1) + ". " + text;
     }
+  }
+  
+  int stringSearch(String main_string, String sub_string) {
+    int lastIndex = 0;
+    int count = 0;
+    while(lastIndex != -1) {
+      lastIndex = main_string.indexOf(sub_string, lastIndex);
+      if(lastIndex != -1) {
+        count++;
+        lastIndex ++;
+      }
+    }
+    return count;
   }
 
   void displayEventResponse() {
@@ -148,9 +194,22 @@ class Event {
       event_stats_done = true;
     }
     if (event_stats_done) {
-      eventMessage.text_string(eventMessage.x, eventMessage.y, responses[player_choice], 12, eventMessage.c, CENTER, eventMessage.font2);
+      
+      response_count = stringSearch(responses[player_choice], ".");
+      split_responses = split(responses[player_choice], '.');
+      
+      // eventMessage.text_string(eventMessage.x, eventMessage.y, responses[player_choice], 12, eventMessage.c, CENTER, eventMessage.font2);
+      eventMessage.text_string(eventMessage.x, eventMessage.y, split_responses[0], 12, eventMessage.c, CENTER, eventMessage.font2);
+      if(response_count >= 1) {
+        eventMessage.text_string(eventMessage.x, eventMessage.y + 25, split_responses[1], 12, eventMessage.c, CENTER, eventMessage.font2);
+      }
+      
       eventStatsLogs(responses_ship_health[player_choice], mainGame.shipHealthCurrent, mainGame.shipHealth, "Ship:", 0);
       eventStatsLogs(responses_oxygen[player_choice], mainGame.shipOxygenCurrent, mainGame.shipOxygen, "Oxygen:", 1);
+      
+      if(mainShip.shipAlive == false) {
+        eventMessage.text_string(width/2, height/2 - 40, "This ship hull breaks apart. Your mission is over.", mainGame.event_log_size + 2, mainGame.loss, CENTER, eventMessage.font2);
+      }
       
       // Logging for crew members
       switch(crew_stat_change) {
@@ -166,6 +225,7 @@ class Event {
   }
 
   void eventStatsChecker() {
+    // Method which actually changes the ship and crew stats
     if (!(mainGame.shipHealthCurrent + responses_ship_health[player_choice] >= mainGame.shipHealth)) {
       mainGame.shipHealthCurrent += responses_ship_health[player_choice];
       mainShip.shipCurrentSectionHP += responses_ship_health[player_choice] * 0.3;
@@ -182,6 +242,14 @@ class Event {
 
     if (!(mainGame.shipOxygenCurrent + responses_oxygen[player_choice] >= mainGame.shipOxygen)) {
       mainGame.shipOxygenCurrent += responses_oxygen[player_choice];
+    }
+
+    if (mainShip.shipMissiles > 0) {
+      mainShip.shipMissiles += responses_missiles[player_choice];
+    }
+    
+    if (responses_crew_gain[player_choice] > 0) {
+      crew_gained = true;
     }
   }
 
@@ -201,6 +269,7 @@ class Event {
   void eventStatsLogsCrew(int change, Crew player, int y_index) {
     color change_color = color(255);
     String log_output = "";
+    // println("[DEBUG] " + player + " health: " + player.crewHealth);
     if (change != 0) {
       if ((change + player.crewCurrentHealth <= player.crewHealth) && (change > 0)) {
         log_output = player.crewName + ": +" + change;

@@ -1,6 +1,6 @@
 import ddf.minim.*;
 import java.util.Map;
-// import processing.opengl.*;
+import processing.opengl.*;
 
 AudioPlayer game_over_music;
 Minim minim;
@@ -13,8 +13,8 @@ int currentScreen;
 
 void setup() {
   // Use of 3D Engine
-  // size(1440, 900, OPENGL);
-  size(1440, 900, P3D);
+  size(1440, 900, OPENGL);
+  //size(1440, 900, P3D);
   
   // Load background images for windows
   backgroundImage = loadImage("background.png");
