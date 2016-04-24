@@ -1,0 +1,3 @@
+id,event,responses
+0,You find a large ship drifting in space. It looks abandoned.,Board the ship and search for survivors/resources|Ignore the ship and continue on your way|Null
+1,You are hailed by a pirate vessel. Their guns are ready to fire.,Prepare for attack|Attempt to flee|Talk to the pirates
