@@ -26,6 +26,7 @@ Run the code straight from the editor if you need to run it on Mac.
 REFERENCES:
 
 Aside from these, I mostly used the processing reference: https://processing.org/reference/
+Special thanks to Jordan Grimes who came up with many, if not most, of the ideas for the events.
 
 1 - https://amnonp5.wordpress.com/2012/01/28/25-life-saving-tips-for-processing
 2 - https://docs.oracle.com/javase/7/docs/api/java/util/Timer.html
@@ -33,4 +34,6 @@ Aside from these, I mostly used the processing reference: https://processing.org
 4 - http://stackoverflow.com/questions/7427141/how-to-get-rgb-value-from-hexadecimal-color-code-in-java
 5 - http://stackoverflow.com/questions/8689725/map-entry-how-to-use-it
 
-
+Art Assets from: http://kenney.nl/
+Spaceship art from: https://forums.spacebattles.com/threads/spaceship-pixel-art.281094/
+Music from: https://www.youtube.com/watch?v=mar-mbCLHvM
