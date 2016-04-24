@@ -1,28 +1,39 @@
+// VENTURA - A game by Louis Bluhm
+// Github.com/kritzware/ventura
+//
+// NOTE: I have included references and other comments in README.txt
+// References to code are marked by '@@@ REF:x' (where x = corresponding reference number)
+// NOTE 2: Throughout the code there are println("[INFO]") or println("[DEBUG]") which I used during debugging, these can be ignored.
+//
+
+// Importing required packages
 import ddf.minim.*;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-AudioPlayer game_over_music, selection, error, beep, ambient;
+// Create the audio objects
+AudioPlayer game_over_music, selection, error, beep, ambient, charging_sfx;
 Minim minim;
 
+// Create a main game and ship
 GameSettings mainGame;
 Ship mainShip;
 
-PImage backgroundImage, menu1img, menu2img, menu3img;
+// Load images for menu selection
+PImage backgroundImage, menu1, menu2, menu3;
 int currentScreen;
 
 void setup() {
-  // Use of 3D Engine
-  // size(1440, 900, OPENGL);
+  // Use of P3D Engine
   size(1440, 900, P3D);
   surface.setResizable(false);
   
   // Load background images for windows
-  backgroundImage = loadImage("background.png");
-  menu1img = loadImage("menu1.png");
-  menu2img = loadImage("menu2.png");
-  menu3img = loadImage("menu3.png");
+  backgroundImage = loadImage("assets/states/background.png");
+  menu1 = loadImage("assets/states/menu1.png");
+  menu2 = loadImage("assets/states/menu2.png");
+  menu3 = loadImage("assets/states/controls.png");
 
   // Create a new game instance
   mainGame = new GameSettings();
@@ -37,56 +48,38 @@ void setup() {
 void draw() {
 
   frameRate(60);
-  // Display FPS in Window title, useful while debugging
-  surface.setTitle("Ventura - alpha 1.2 | " + int(frameRate) + " fps");
-  
-  minim.stop();
-  drawMainGame();
-  
-  // Menu selection
-  //switch(currentScreen) {
-  //case 0: drawMenu1(); break;
-  //case 1: drawMenu2(); break;
-  //case 2: drawMenu3(); break;
-  //case 3: drawMainGame(); break;
-  //}
+  // Display FPS in Window title, useful while debugging/optimizing
+  //surface.setTitle("Ventura - alpha | " + int(frameRate) + " fps");
+  surface.setTitle("Ventura");
+ 
+  // Menu selection screens
+  switch(currentScreen) {
+  case 0: drawMenu(menu1); break;
+  case 1: drawMenu(menu2); break;
+  case 2: drawMenu(menu3); break;
+  case 3: drawMainGame(); break;
+  }
 }
 
-void drawMenu1() {
-  background(menu1img);
-}
-void drawMenu2() {
-  background(menu2img);
-}
-void drawMenu3() {
-  background(menu3img);
+void drawMenu(PImage screen) {
+  // Draws the menu screen defined by the function parameter
+  background(screen);
 }
 
 void drawMainGame() {
-  
-  //if(mainShip.shipAlive) {
-  //    background(backgroundImage);
-
-  //    // Draw the ship
-  //    mainShip.draw();
-    
-  //    // Create initial level
-  //    mainGame.createLevel();
-  //} else {
-  //   mainGame.gameOver();
-  //}
+  // This functions draws the main game and checks if the game is over
   if(mainGame.game_over == false) {
     background(backgroundImage);
     mainShip.draw();
+    // Method which creates the game level
     mainGame.createLevel();
   } else {
     mainGame.mainGameOver.draw();
-  }
-
-  
+  }  
 }
 
 void mousePressed() {
+  // Keeps track of the current screen during the menu
   if (currentScreen < 3) currentScreen++;
 }
 
@@ -101,40 +94,41 @@ void keyPressed() {
    mainGame.audioMuted = false;
    ambient.unmute();
   }
-  if (key == 'w') {
-    mainGame.inventoryOpen = !mainGame.inventoryOpen;
-    mainGame.travelPanelOpen = false;
-  }
   if (key == 'q') {
     mainGame.travelPanelOpen = !mainGame.travelPanelOpen;
     mainGame.inventoryOpen = false;
   }
-  if (key == 'c') {
-    mainGame.createPlanet();
-  }
-  if (key == 'v') {
+  if (key == 'w') {
     mainShip.dropship.charging = true;
     mainShip.dropship.deployed = !mainShip.dropship.deployed;
     mainShip.dropship.paused = !mainShip.dropship.paused;
     mainShip.dropship.energyGenerated = 0;
   }
-  if (key == 'k') {
-    mainGame.shipEnergyCurrent += 100;
-  }
-  if (key == 'j') {
-    mainGame.shipEnergyCurrent -= 100;
-  }
-  if (key == 'g') {
-    mainGame.gameOver();
-  }
+  //if (key == 'k') {
+  //  mainGame.shipEnergyCurrent += 100;
+  //}
+  //if (key == 'j') {
+  //  mainGame.shipEnergyCurrent -= 100;
+  //}
+  //if (key == 'g') {
+  //  mainGame.gameOver(1);
+  //}
+  //if (key == 'h') {
+  //  mainGame.gameOver(0);
+  //}
+  //if (key == 'l') {
+  //  for(Crew members : mainGame.crew) {
+  //    members.alive = false;
+  //  }
+  //}
 }
 
 void createAudio() {
+  // Audio is loaded here
   minim = new Minim(this);
-  //battle music
-  //player = minim.loadFile("assets/audio/music.mp3", 2048);
   // Ambient music
   ambient = minim.loadFile("assets/audio/ambient2.mp3", 2048);
+  // Loop the main ambient music during the game
   ambient.loop();
   // Gameover music
   game_over_music = minim.loadFile("assets/audio/game_over.mp3", 2048);
@@ -144,15 +138,21 @@ void createAudio() {
   error = minim.loadFile("assets/audio/error.wav", 2048);
   // Beep
   beep = minim.loadFile("assets/audio/beep.wav", 2048);
+  // Charging
+  charging_sfx = minim.loadFile("assets/audio/charging.wav", 2048);
 }
 
-// Global functions
+// Global functions for use in other classes
 
+// @@@REF:1
 boolean rectHover(float x, float y, float w, float h) {
+  // Returns true if mouseX and mouseY are within the boundaries of the rectangle
   return (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h);
 }
 
+// @@@REF:1
 boolean ellipseHover(float x, float y, float diameter) {
+  // Returns true if the distance of the mouse and x,y is less than the diameter of the ellipse
   if (dist(mouseX, mouseY, x, y) < diameter * 0.5) {
     return true;
   } else {

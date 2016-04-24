@@ -1,53 +1,42 @@
 class UI {
 
-  //PFont font;
-
+  // Positioning and color
   float x, y;
+  float shipSectionX, shipSectionY;
   color c;
-  PImage panel, panel2, panel2hover;
-  PImage inv;
+  color hostility;
+  
+  // Game images
+  // PImage inv;
   PImage shipSectionPanel;
   PImage travelPanel;
   PImage eventPanel;
   PImage planetHoverPanel;
-  PImage travelHover;
 
-  color hostility;
-
-  float shipSectionX, shipSectionY;
-
+  // Define the fonts used in program
   PFont font, font2;
 
   UI(float _x, float _y, color _c) {
-
-    font = loadFont("SharpRetro-48.vlw");
-    font2 = loadFont("pixelmix-bold-14.vlw");
     
-    // font2 = loadFont("KenPixel-48.vlw");
-    // textFont(font, 140);
+    // Load the font files
+    font = loadFont("assets/fonts/SharpRetro-48.vlw");
+    font2 = loadFont("assets/fonts/pixelmix-bold-14.vlw");
 
     x = _x;
     y = _y;
     c = _c;
-
-    //font = createFont("KenPixel", 32);
-    panel = loadImage("modal1.png");
-    panel2 = loadImage("panel2.png");
-    panel2hover = loadImage("panel2hover.png");
-
-    shipSectionPanel = loadImage("ship_area.png");
+    
+    // Various game images are loaded
+    shipSectionPanel = loadImage("assets/ui/ship_area.png");
     shipSectionX = width/2 - 515;
     shipSectionY = height - 130;
-
-    travelPanel = loadImage("travel.png");
-
-    eventPanel = loadImage("modal1.png");
-
-    planetHoverPanel = loadImage("planet_hover.png");
-    travelHover = loadImage("travel_hover.png");
+    travelPanel = loadImage("assets/ui/travel.png");
+    eventPanel = loadImage("assets/ui/modal1.png");
+    planetHoverPanel = loadImage("assets/ui/planet_hover.png");
   }
 
   void draw(String title) {
+    // Method to draw basic text from given string
     textFont(font, 140);
     fill(c);
     textAlign(0);
@@ -56,6 +45,7 @@ class UI {
   }
   
   void hoverPanel(float hoverX, float hoverY, String message, String message2, String message3, float hoverWidth, float hoverHeight) {
+    // Method to draw a panel when a specified item is hovered over, makes use of the text_string method
     fill(31, 31, 31);
     stroke(255);
     rect(hoverX, hoverY, hoverWidth, hoverHeight);
@@ -65,6 +55,7 @@ class UI {
   }
 
   void bar(float barX, float barY, float barWidth, float barHeight, color barColor, float barWidthTotal) {
+    // Draws a bar from given parameters (used for ship health and energy etc.)
     rectMode(CORNER);
     stroke(255);
     fill(0);
@@ -74,14 +65,9 @@ class UI {
     rect(barX, barY, barWidth, barHeight);
   }
 
-  //void modal(float modalX, float modalY, float modalWidth, float modalHeight, color modalColor) {
-  //  translate(0, 0, 100);
-  //  rectMode(CENTER);
-  //  fill(modalColor);
-  //  stroke(255);
-  //}
-
   void text_string(float x, float y, String string, int font_size, color c, int align, PFont text_font) {
+    // The most commonly used method from this class
+    // Draws text but has many parameters allowing for greater options, e.g. font, alignment
     textFont(text_font, 140);
     fill(c);
     textAlign(align);
@@ -90,67 +76,92 @@ class UI {
   }
 
   void drawEventPanel() {
+    // Draws the event panel when called in the Event class
     image(eventPanel, width/2, height/2);
   }
 
   void responsePanelClose() {
+    
+    // Checks for hover over the button, and changes colour if so
     rectMode(CENTER);
     if (rectHover(width/2-100, height/2 + 170, 200, 25)) {
       fill(30, 30, 30);
     } else {
       fill(51, 51, 51);
-    } 
+    }
+    
+    // Draws the exit button on the event menu
     rect(width/2, height/2+180, 200, 25);
     text_string(width/2, height/2+185, "Click here to close", 12, color(255), CENTER, font2);
+    
+    // If exit button is pressed the following is executed
     if (rectHover(width/2-100, height/2+170, 200, 25) && mousePressed) {
+      
+      // Event panel is closed
       mainGame.eventPanelClosed = true;
       mainGame.eventOpen = false;
+      
+      // If the ship is not alive after the event, initiate a game over
       if(mainShip.shipAlive == false) {
-        mainGame.gameOver();
+        mainGame.gameOver(0);
       }
+      
+      // If the player reachs the final planet, inform them and initiate a game complete
+      if(mainGame.planet.planetCount == mainGame.planet.planetNames.length - 2) {
+        println("[INFO] Player reach final planet");
+        mainGame.gameOver(1);
+      }
+      
+      // If all crew are dead, initiate a game over
+      if(mainGame.all_crew_dead) {
+        mainGame.gameOver(0);
+      }
+      
+      // Call the Crew stat_increase method on event exit
       for(int i = 0; i < mainGame.crew.size(); i++) {
         mainGame.crew.get(i).stat_increase = true;
       }
+      
+      // Add a new Crew member to the Crew arraylist if a crew member was gained
       if(mainGame.newEvent.crew_gained) {
+        // Adds a new crew member, using randomly generated stats
         mainGame.crew.add(new Crew(mainGame.crew_member_gained, mainGame.crew_roles[(int)(Math.random() * mainGame.crew_roles.length)], mainGame.last_crew_position_x + 60, 10, mainGame.last_crew_position_x + 60, 45));
+        // Increments the x-position for drawing the crew on screen in the correct place
         mainGame.last_crew_position_x += 60;
+        // Reverts the boolean back to false to stop if repeating every frame
         mainGame.newEvent.crew_gained = false;
-       // planetNames[(int)(Math.random() * planetNames.length)];
       }
+      
+      // Play an audio effect on button press
       selection.rewind();
       selection.play();
     }
   }
 
   void shipSectionDisplay() {
+    // Draws the ship section panel image and calls the corresponding method
     image(shipSectionPanel, shipSectionX, shipSectionY);
     mainShip.shipSectionDraw();
   }
 
-  boolean hoverDetection(float x, float y, float diameter) {
-    if (dist(mouseX, mouseY, x, y) < diameter * 0.5) {
-      println("hover detected");
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   void planetHoverInfo() {
+    // UI method to draw the planet hover info/stats
     image(planetHoverPanel, x, y);
     float textX = x - 165;
     float textXside = x + 165;
     int textSize = 20;
     int textSizePlanet = 24;
+    // Line used to create space in the panel
     line(textX, y-145, textXside, y-145);
-    //Planet name
+    // Planet name
     text_string(textX, y-150, "Planet: ", textSizePlanet, c, LEFT, font);
     text_string(textXside, y-150, mainGame.planet.planetNameRandom, textSizePlanet, c, RIGHT, font);
-    //Species + Hostility
+    // Species + Hostility
     text_string(textX, y-120, "Main Species: ", textSize, c, LEFT, font);
     text_string(textXside, y-120, mainGame.planet.planetSpeciesRandom, textSize, c, RIGHT, font);
     text_string(textX, y-100, "Hostility: ", textSize, c, LEFT, font);
-
+    
+    // Changes the hostility text colour depending on the generated hostility e.g. dangerous = red
     if (mainGame.planet.planetSpeciesHostility.equals("DANGEROUS")) {
       hostility = color(255, 0, 0);
     }
@@ -165,8 +176,7 @@ class UI {
     }
     text_string(textXside, y-100, mainGame.planet.planetSpeciesHostility, textSize, hostility, RIGHT, font);
 
-
-    //Other
+    // Other stats
     text_string(textX, y-60, "Circumference: ", textSize, c, LEFT, font);
     text_string(textXside, y-60, mainGame.planet.planetCircumference + " km", textSize, c, RIGHT, font);
     text_string(textX, y-40, "Axial Tilt: ", textSize, c, LEFT, font);

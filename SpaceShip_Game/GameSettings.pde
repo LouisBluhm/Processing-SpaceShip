@@ -1,17 +1,20 @@
 class GameSettings {
   
-  //  UI objects
+  // The main game class which makes use of many other classes within it
+  // Also serves as a config file for game settings. It would be better to move the config to a config.ini file instead however.
+  
+  // UI objects
   UI health, oxygen, planetNameUI, ftl_travel, modal1, shipDisplayPanel, energy;
   UI travelMenu;
   UI travelInfo;
   UI eventPanel;
   UI planetHoverInfo;
-  boolean buttonHover = false;
   
-  //  Inventory
-  Inventory inventory;
+  // Inventory
+  // ! This class is unused/unfinished
+  // Inventory inventory;
   
-  //  Ship configurations
+  // Ship configurations
   int shipHealth = 300;
   int shipHealthCurrent = 300;
   int shipOxygen = 100;
@@ -21,7 +24,7 @@ class GameSettings {
   int shipEnergyCost = 100;
   int shipEnergyUsage = 60;
 
-  //  UI Colors
+  // UI Colors
   color shipHealthColor = color(0, 255, 0);
   color shipOxygenColor = color(114, 188, 212);
   color shipEnergyColor = color(255, 255, 0);
@@ -32,16 +35,19 @@ class GameSettings {
   color gain = color(0, 255, 0);
   color loss = color(255, 0, 0);
   
-  //  UI Fonts
+  // UI Font sizes
   int event_log_size = 14;
   int event_message_size = 13;
   int event_choice_size = 12;
 
-  //  Create a planet object
+  // Create a planet object
   Planet planet;
+  int planet_counter;
   
   // Crew
+  // Arraylist of Crew objects
   ArrayList<Crew> crew = new ArrayList<Crew>();
+  // Name of crew member gained during events
   String crew_member_gained;
   
   // Stats for generating new crew members
@@ -50,11 +56,7 @@ class GameSettings {
   String[] crew_roles = {"Pilot", "Biologist", "Soldier", "Engineer"};
   int last_crew_position_x = 520;
   
-  // Audio
-  Minim minim;
-  AudioPlayer selection;
-  
-  // Travel window object
+  // Travel
   Travel travel;
   
   // Create random event object and event checking storage;
@@ -65,7 +67,7 @@ class GameSettings {
   // Create a game over object
   GameOver mainGameOver;
   
-  // Game states
+  // Game states initialized
   boolean travelPanelOpen = false;
   boolean inventoryOpen = false;
   boolean eventOpen = false;
@@ -74,16 +76,11 @@ class GameSettings {
   boolean eventResponsesOpen = false;
   boolean create_planet = true;
   boolean game_over = false;
-
-  // Game default config
-  float resourceTimer;
-  boolean audioMuted = false;
+  boolean all_crew_dead = false;
+  boolean audioMuted = false; 
   
   // Load Images
   PImage defaultPointer, handPointer, game_over_background;
-  
-  // test vars
-  int planet_counter;
 
   GameSettings() {
     
@@ -98,7 +95,7 @@ class GameSettings {
       crew_names.add(name);
     }
     
-    // Load cursor image
+    // Load cursor images
     defaultPointer = loadImage("assets/ui/pointer_shadow.png");
     handPointer = loadImage("assets/ui/pointer_hand.png");
     
@@ -112,12 +109,14 @@ class GameSettings {
     eventPanel = new UI(0, 0, color(255));
     planetHoverInfo = new UI(1200, height/2 + 200, color(255));
     
-    // Create various objects
-    inventory = new Inventory();
+    // inventory = new Inventory();
+    
+    // Create the trave object
     travel = new Travel();
   }
   
   void createPlanet() {
+    // Method used to create new planets when selected on the travel menu
     // Create a new planet, with random settings
     planet = new Planet(color(random(255), random(255), random(255)), (int)random(5, 25), random(100, 300), PI / 50, random(-0.2, 0.2), planet_counter);
     // Create the planet UI object
@@ -129,6 +128,7 @@ class GameSettings {
   void startNewEvent() {
     // Creates a new event when called
     newEvent = new Event();
+    // Changes the game state to eventOpen
     eventOpen = true;
   }
 
@@ -142,12 +142,12 @@ class GameSettings {
     drawCursor();
   }
   
-  void gameOver() {
+  void gameOver(int type) {
     // Creates a game over screen when called
     if(game_over == false) {
       ambient.pause();
       println("[INFO] Game over state started");
-      mainGameOver = new GameOver();
+      mainGameOver = new GameOver(type);
       // Plays music during the game over screen, called here instead of GameOver class to stop it looping every frame
       game_over_music.loop();
       game_over = true;
@@ -164,6 +164,7 @@ class GameSettings {
     // Energy 
     energy.draw("Energy (" + shipEnergyCurrent + " / " + shipEnergy + ")");
     energy.bar(950, 25, shipEnergyCurrent, 10, shipEnergyColor, shipEnergy);
+    // Displays more information when hovered over
     if(rectHover(950, 10, 300, 30)) {
       energy.hoverPanel(950, 50, "- Travelling to a system uses " + shipEnergyCost + " cells", "- Deploy dropship to charge energy cells", "- Run out of energy and you will be stranded!", 360, 80);
       energy.hoverPanel(950, 140, "Engines: " + shipEnergyUsage + "% Energy", "Oxygen: 20% Energy", "Dropship: " + mainShip.dropship.energyUsage + "% Energy", 360, 80);
@@ -182,16 +183,14 @@ class GameSettings {
     }
     
     drawTravelMenu();
-    drawInventory();
+    // drawInventory();
     drawEvent();
     drawPlanetHoverInfo();
     drawCrew();
   }
   
   void drawCrew() {
-    //crew1.draw_crew();
-    //crew2.draw_crew();
-    //crew3.draw_crew();
+    // Draws all crew members from the arraylist
     for(Crew members : crew) {
       members.draw_crew();
     }
@@ -214,31 +213,32 @@ class GameSettings {
   void drawTravelMenu() {
     travel.drawTravelButton();
     if(travelPanelOpen) {
-      //  travel.closeTravelButton();
+      // If travel panel is open draw the travel menu and negate the states of the ship sections
       shipStateChange();
       travel.draw();
-      //  travelMenu.travelPanelDisplay();
     }
   }
   
-  void drawInventory() {
-    if(inventoryOpen) {
-      shipStateChange();
-      inventory.loadDefault();
-    }
-  }
+  //void drawInventory() {
+  //  if(inventoryOpen) {
+  //    shipStateChange();
+  //    inventory.loadDefault();
+  //  }
+  //}
   
   void drawEvent() {
     if(eventOpen) {
+      // If event is open draw the event and negate the states of the ship sections
       shipStateChange();
+      // Display the event
       newEvent.displayEventMessage();
       eventPanelClosed = false;
     }
   }
   
   void drawPlanetHoverInfo() {
+    // Draw planet hover info if other menus are closed
     if(planetHoverInfoOpen && travelPanelOpen == false && eventOpen == false) {
-     // if(planetHoverInfoOpen && (travelPanelOpen == false || inventoryOpen == false || eventOpen == false)) {
       planetHoverInfo.planetHoverInfo();
     }
   }

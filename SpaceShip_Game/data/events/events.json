@@ -12,9 +12,9 @@
 			"stats" : 
 			[
 				{	"response" : [
-						{	"message" : "As you search the ship an old fuel tank explodes. Your boarding crew suffer heavy damage and barely escape."},
-						{	"ship_health" : -10 },
-						{	"crew_health" : -40 },
+						{	"message" : "As you search the ship an old fuel tank explodes. Your boarding crew suffer heavy damage."},
+						{	"ship_health" : -25 },
+						{	"crew_health" : -100 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
 						{	"crew_gain": 0 },
@@ -67,7 +67,7 @@
 				{	"response" : [
 						{	"message" : "As you speed away you are hit by a pirate rocket" },
 						{	"ship_health" : -50 },
-						{	"crew_health" : 0 },
+						{	"crew_health" : -20 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
 						{	"crew_gain": 0 },
@@ -77,7 +77,7 @@
 				{	"response" : [
 						{	"message" : "The pirates listen to your emotional speech and leave you be" },
 						{	"ship_health" : 0 },
-						{	"crew_health" : 10 },
+						{	"crew_health" : 20 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
 						{	"crew_gain": 0 },						
@@ -469,49 +469,6 @@
 						{	"missiles": 0 },
 						{	"crew_gain": 0 },						
 						{	"energy" : 0 }
-					]
-				}, 
-			]
-		},
-		{
-			"id" : 11,
-			"message" : "dev event",
-			"responses" : 
-			[
-				{	"response" :  "kill ship" },
-				{	"response" :  "minus stats *" },
-				{	"response" :  "gain health & missiles" },	
-			],
-			"stats" : 
-			[
-				{	"response" : [
-						{	"message" : "kill ship" },
-						{	"ship_health" : -300 },
-						{	"crew_health" : 0 },
-						{	"oxygen": 0 },
-						{	"missiles": 0 },
-						{	"crew_gain": 0 },
-						{	"energy" : 0 }
-					]
-				}, 
-				{	"response" : [
-						{	"message" : "gain crew" },
-						{	"ship_health" : -25 },
-						{	"crew_health" : -25 },
-						{	"oxygen": -25 },
-						{	"missiles": -2 },
-						{	"crew_gain": 1 },
-						{	"energy" : -20 }
-					]
-				}, 
-				{	"response" : [
-						{	"message" : "gain health & missiles" },
-						{	"ship_health" : 50 },
-						{	"crew_health" : 50 },
-						{	"oxygen": 50 },
-						{	"missiles": 2 },
-						{	"crew_gain": 0 },						
-						{	"energy" : 40 }
 					]
 				}, 
 			]
