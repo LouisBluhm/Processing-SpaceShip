@@ -25,7 +25,7 @@ class Travel {
   
   Travel() {
     travelPanel = new UI(width/2, height/2, color(255));
-    travel_window = loadImage("travel.png");
+    travel_window = loadImage("assets/ui/travel.png");
     systemHover = color(0, 255, 0);
     
     // Loop to fill the Hashmap and the dictionary

@@ -14,7 +14,7 @@
 				{	"response" : [
 						{	"message" : "As you search the ship an old fuel tank explodes. Your boarding crew suffer heavy damage."},
 						{	"ship_health" : -25 },
-						{	"crew_health" : -100 },
+						{	"crew_health" : -40 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
 						{	"crew_gain": 0 },

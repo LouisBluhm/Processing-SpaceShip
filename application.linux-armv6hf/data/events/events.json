@@ -1,0 +1,477 @@
+{
+	"events": [
+		{
+			"id" : 0,
+			"message" : "You find a large ship drifting in space. It looks abandoned.",
+			"responses" : 
+			[
+				{	"response" :  "Board the ship and search for survivors/resources" },
+				{	"response" :  "Ignore the ship and continue on your way" },
+				{	"response" :  "Null" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "As you search the ship an old fuel tank explodes. Your boarding crew suffer heavy damage."},
+						{	"ship_health" : -25 },
+						{	"crew_health" : -40 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The abandoned ship drifts into the distance and fills you with determination"},
+						{	"ship_health" : 0 },
+						{	"crew_health" : 25 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "Null"},
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 1,
+			"message" : "You are hailed by a pirate vessel. Their guns are ready to fire.",
+			"responses" : 
+			[
+				{	"response" :  "Try and shoot down the pirate vessel" },
+				{	"response" :  "Attempt to flee" },
+				{	"response" :  "Try and talk to the pirate leader" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "Your weapons malfunction, damaging your ship. You are forced to flee" },
+						{	"ship_health" : -100 },
+						{	"crew_health" : -25 },
+						{	"oxygen": -10 },
+						{	"missiles": -1 },
+						{	"crew_gain": 0 },
+						{	"energy" : -20 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "As you speed away you are hit by a pirate rocket" },
+						{	"ship_health" : -50 },
+						{	"crew_health" : -20 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The pirates listen to your emotional speech and leave you be" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 20 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 2,
+			"message" : "The star in this system appears to be exploding in a supernova",
+			"responses" : 
+			[
+				{	"response" :  "Retreat to a safe distance" },
+				{	"response" :  "Stay to charge ship batteries" },
+				{	"response" :  "Null" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "The ship escapes safely, taking minor damage" },
+						{	"ship_health" : -50 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The energy from the supernova charges the ship's batteries" },
+						{	"ship_health" : -50 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 60 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "Null" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 3,
+			"message" : "You intercept an unintelligible transmission coming from the nearby planet",
+			"responses" : 
+			[
+				{	"response" :  "Ignore the transmission" },
+				{	"response" :  "Investigate the source of the signal" },
+				{	"response" :  "Send a transmission back" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "You ignore the transmission and discover a damaged ship. You retrieve several energy cells" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 40 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "You find the ruins of an ancient civilisation. The transmission seems to have been automatic and there is no sign of life" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "You send a greeting messsage to the source. The transmission stops for a few moments but then resumes as before" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 4,
+			"message" : "You intercept an unintelligible transmission coming from the nearby planet",
+			"responses" : 
+			[
+				{	"response" :  "Ignore the transmission" },
+				{	"response" :  "Investigate the source of the signal" },
+				{	"response" :  "Send a transmission back" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "You ignore the transmission and continue on your way." },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "You find the ruins of an ancient civilisation. Automatic defensive systems open fire on the ship. You are forced to retreat." },
+						{	"ship_health" : -100 },
+						{	"crew_health" : -15 },
+						{	"oxygen": -10 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "You send a greeting messsage to the source. The incoming transmission becomes an unbearably high pitch screech. You turn off the com. systems" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : -25 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 5,
+			"message" : "As you reach the system a teapot is detected floating next to a nearby planet",
+			"responses" : 
+			[
+				{	"response" :  "Ignore the teapot" },
+				{	"response" :  "Investigate the teapot" },
+				{	"response" :  "Destroy the teapot" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "You pretend the teapot does not exist" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "As you draw closer the teapot seems to dissapear. You wonder whether the teapot ever existed at all..." },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The teapot is completely annihilated by a high precision missile. The crew become saddened." },
+						{	"ship_health" : 0 },
+						{	"crew_health" : -15 },
+						{	"oxygen": 0 },
+						{	"missiles": -1 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 6,
+			"message" : "You are hailed by a nearby ship whose crew consits solely of a Mariachi Band. They ask \"Do you like our music?\"",
+			"responses" : 
+			[
+				{	"response" :  "\"It's great\"" },
+				{	"response" :  "\"My ears have never been in more pain\"" },
+				{	"response" :  "Open fire at the ship" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "The musicians are over the moon and dedicate their next tune to your ship. They send a sizable amount of guacamole." },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The musicians stop playing and seem disheartened. Giving up on music they throw their instruments out of the airlock some of which hit your ship" },
+						{	"ship_health" : -25 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The musical ship explodes after the first hit. Guitars and sombreros fly off in to deep space" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": -1 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 7,
+			"message" : "You arrive at a planet that is surrounded by millions of sizable asteroids. Some are about to collide with the ship",
+			"responses" : 
+			[
+				{	"response" :  "Take evasive maneuvers" },
+				{	"response" :  "Stay in position" },
+				{	"response" :  "Attempt to land on an incoming asteroid" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "The ship barely manages to escape. Several smaller asteroids collide with the ship" },
+						{	"ship_health" : -100 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "Three large asteroids collide with the ship and knock it away from the planet" },
+						{	"ship_health" : -200 },
+						{	"crew_health" : -35 },
+						{	"oxygen": -100 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The landing is rough but the ship successfully lands on the largest approaching asteroid. The nearby sun charges your ship cells" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : -10 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 60 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 8,
+			"message" : "You see what appears to be the crew of a ship floating in space. The ship is nowhere to be seen",
+			"responses" : 
+			[
+				{	"response" :  "Collect the crew" },
+				{	"response" :  "Attempt to find the missing ship" },
+				{	"response" :  "Ignore them" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "All of the crew are gathered on to the ship. Only one is alive, who thanks you and offers to join your crew" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 1 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "After searching for hours you finally discover two ships in the system, one looks badly damaged. As you approach one of the ships opens fire and you are forced to flee" },
+						{	"ship_health" : -50 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "As fly by you think you see one of them move" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 9,
+			"message" : "The nearest planet hails you asking if the crew would like a vacation on their holiday planet",
+			"responses" : 
+			[
+				{	"response" :  "Send crew for a holdiay" },
+				{	"response" :  "Turn down the offer of a holiday" },
+				{	"response" :  "Destroy their communications satellite" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "The crew have a wonderfull couple of days windsurfing, getting massages and relaxing by the pool. A holiday maker offers to join your crew, to which you accept" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 50 },
+						{	"oxygen": 0 },
+						{	"missiles": 2 },
+						{	"crew_gain": 1 },
+						{	"energy" : 40 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "\"Okay but make sure to visit us again!\"" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The satellite shatters into a thousand pieces. You accidentally kill an engineer who was working on the satellite" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": -1 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+		{
+			"id" : 10,
+			"message" : "A large black monolith orbits above this planet",
+			"responses" : 
+			[
+				{	"response" :  "Approach the monolith" },
+				{	"response" :  "Open fire at the monolith" },
+				{	"response" :  "Ignore the monolith" },	
+			],
+			"stats" : 
+			[
+				{	"response" : [
+						{	"message" : "Upon approaching the monolith the crew are sent on a transcendent voyage through time and space. Upon returning the crew feel enlightened" },
+						{	"ship_health" : -10 },
+						{	"crew_health" : 25 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "Your weaponary appears to have no effect on it. The ship electronics stutter for a brief second after" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : 0 },
+						{	"oxygen": 0 },
+						{	"missiles": -1 },
+						{	"crew_gain": 0 },
+						{	"energy" : -20 }
+					]
+				}, 
+				{	"response" : [
+						{	"message" : "The ship leaves the monolith but the crew can feel its precence waying heavily on their minds" },
+						{	"ship_health" : 0 },
+						{	"crew_health" : -25 },
+						{	"oxygen": 0 },
+						{	"missiles": 0 },
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
+					]
+				}, 
+			]
+		},
+	]
+}

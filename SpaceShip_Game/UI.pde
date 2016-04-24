@@ -180,6 +180,9 @@ class UI {
     text_string(textX, y-60, "Circumference: ", textSize, c, LEFT, font);
     text_string(textXside, y-60, mainGame.planet.planetCircumference + " km", textSize, c, RIGHT, font);
     text_string(textX, y-40, "Axial Tilt: ", textSize, c, LEFT, font);
+    if(mainGame.planet.planetTilt < 0) {
+      mainGame.planet.planetTilt *= -1;
+    }
     text_string(textXside, y-40, mainGame.planet.planetTilt + " RAD", textSize, c, RIGHT, font);
     text_string(textX, y-20, "Surface Temp: ", textSize, c, LEFT, font);
     text_string(textXside, y-20, mainGame.planet.planetTemperature + " DEG", textSize, c, RIGHT, font);
