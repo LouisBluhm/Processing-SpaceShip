@@ -35,7 +35,7 @@ class Crew {
     crew_icon = loadImage("crew_icon.png");
     crew_icon_dead = loadImage("crew_icon_dead.png");
     
-    crewInfo = new UI(crewNameX, crewNameY, crewName, color(255));
+    crewInfo = new UI(crewNameX, crewNameY, color(255));
   }
   
   void icon(float x, float y) {
@@ -72,7 +72,7 @@ class Crew {
   void draw_crew() {
     check_crew();
     icon(crewIconX, crewIconY);
-    crewInfo.text_string(crewInfo.x, crewInfo.y, crewInfo.title, 16, crewInfo.c, LEFT, crewInfo.font);
+    crewInfo.text_string(crewInfo.x, crewInfo.y, crewName, 16, crewInfo.c, LEFT, crewInfo.font);
     status();
     crewInfo.bar(crewNameX, crewNameY+4, crewCurrentHealth * 0.5, 2, crewCurrentHealthColor, 0);
     if(alive == false) {

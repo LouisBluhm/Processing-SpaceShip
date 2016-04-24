@@ -18,7 +18,7 @@ class Travel {
   IntDict systemcordsY = new IntDict();
   
   Travel() {
-    travelPanel = new UI(width/2, height/2, "TRAVEL", color(255));
+    travelPanel = new UI(width/2, height/2, color(255));
     travel_window = loadImage("travel.png");
     systemHover = color(0, 255, 0);
     // Add a temp starting map position
@@ -48,6 +48,11 @@ class Travel {
     
     travelPanel.text_string(width/2-450, height/2+235, "Next planet to explore: " + mainGame.planet.planetNames[mainGame.planet.planetCount+1], 25, color(255), LEFT, travelPanel.font);
     
+    if(mainGame.shipEnergyCurrent < 75) {
+      error.play();
+      travelPanel.text_string(width/2-50, height/2+235, "Not enough energy. Charge cells first!", 27, color(255, 0, 0), LEFT, travelPanel.font);
+    }
+    
     for(int i = 0; i < mainGame.planet.planetCount; i++) {
       line(systemcordsX.get(str(i)), systemcordsY.get(str(i)), systemcordsX.get(str(i+1)), systemcordsY.get(str(i+1)));
     }
@@ -73,16 +78,27 @@ class Travel {
       if(mainGame.planet.planetCount != mainGame.planet.planetNames.length) {
         if(mousePressed && ellipseHover(systemcordsX.get(str(mainGame.planet.planetCount+1)), systemcordsY.get(str(mainGame.planet.planetCount+1)), systemSize*2) && (systemcordsX.get(str(i)) != currentPlanetX && systemcordsY.get(str(i)) != currentPlanetY)) {
         //if(mousePressed && ellipseHover(systemcordsX.get(str(i)), systemcordsY.get(str(i)), systemSize) && (systemcordsX.get(str(i)) != currentPlanetX && systemcordsY.get(str(i)) != currentPlanetY)) {
-          println("[INFO] Success: newPlanet selected!");
-          mainGame.createPlanet();
-          mainGame.eventOpen = false;
-          mainGame.eventResponsesOpen = false;
-          mainGame.startNewEvent();
-          mainGame.travelPanelOpen = false;
+          
+          if(mainGame.shipEnergyCurrent < mainGame.shipEnergyCost) {
+            println("[INFO] Energy critical amount, travel disabled");
+          } else {
+            println("[INFO] Success: newPlanet selected!");
+            mainGame.shipEnergyCurrent -= mainGame.shipEnergyCost;
+            mainGame.createPlanet();
+            mainGame.eventOpen = false;
+            mainGame.eventResponsesOpen = false;
+            mainGame.startNewEvent();
+            mainGame.travelPanelOpen = false;
+            mainShip.dropship.deployed = false;
+            mainShip.dropship.charging = false;
+            error.rewind();
+          }
         }
       }
     }
     if(mousePressed && ellipseHover(currentPlanetX, currentPlanetY, systemSize*2)) {
+      error.rewind();
+      error.play();
       println("[ERROR] Error: currentPlanet selected");  
     }
   }

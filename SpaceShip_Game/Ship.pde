@@ -35,6 +35,8 @@ class Ship {
   UI shipSection;
   
   Weapon weapon1;
+  
+  Dropship dropship;
 
   Ship(float _shipX, float _shipY) {
 
@@ -49,9 +51,10 @@ class Ship {
     shipImageArrayBottom = loadImage("mainShip_h_arrayBottom.png");
     ship_selection = shipImageDefault;
     
-    shipSection = new UI(width/2-700, height/2+225, null, color(255));
+    shipSection = new UI(width/2-700, height/2+225, color(255));
     
     weapon1 = new Weapon(800, 25, "missile");
+    dropship = new Dropship();
   }
 
   void draw() {
@@ -69,6 +72,8 @@ class Ship {
     checkStatus();
     
     weapon1.draw();
+    
+    dropship.draw();
   }
   
   void checkStatus() {
@@ -141,13 +146,5 @@ class Ship {
       shipArrayTopOpen = false;
       shipArrayBottomOpen = false;
     }
-  }
-  
-  void drawPlayers() {
-    player1.draw();
-  }
-
-  void playerMovement() {
-    player1.playerMovement();
   }
 }

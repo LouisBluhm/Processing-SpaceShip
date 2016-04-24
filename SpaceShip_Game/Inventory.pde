@@ -1,3 +1,5 @@
+// THIS CLASS IS UNFINISHED AND NOT USED IN THE SUBMITTED VERSION
+
 class Inventory {
 
   PImage inv, inv_item;
@@ -22,7 +24,7 @@ class Inventory {
       inventory_items[i] = loadImage("inventory_items/" + str(i) + ".png");
     }
     
-    itemData = new UI(0, 0, "data", color(255));
+    itemData = new UI(0, 0, color(255));
     inv_itemX = width/2 - 400;
     inv_itemY = height/2;
     items = loadJSONArray("items.json");

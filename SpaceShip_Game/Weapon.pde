@@ -16,7 +16,7 @@ class Weapon {
       weaponType = "Proton Missile";
     }
     
-    weaponDisplay = new UI(weaponX, weaponY, "Missiles", color(255));
+    weaponDisplay = new UI(weaponX, weaponY, color(255));
     
   }
   
@@ -28,10 +28,7 @@ class Weapon {
   
   void checkStatus() {
     if(rectHover(weaponX - (weaponImg.width/2), weaponY - (weaponImg.height/2), weaponImg.width, weaponImg.height)) {
-      fill(31, 31, 31);
-      rect(weaponX, weaponY+25, 150, 200);
-      weaponDisplay.text_string(weaponX+5, weaponY+50, weaponType, 21, color(255), LEFT, weaponDisplay.font);
-      weaponDisplay.text_string(weaponX+5, weaponY+70, "Amount: " + mainShip.shipMissiles, 20, color(255), LEFT, weaponDisplay.font);
+      weaponDisplay.hoverPanel(weaponX, weaponY+25, " " + weaponType, " Amount: " + mainShip.shipMissiles, "", 150, 60);
     }
   }
   

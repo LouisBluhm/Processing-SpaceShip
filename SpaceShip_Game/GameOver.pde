@@ -10,7 +10,7 @@ class GameOver {
   
   GameOver() {
     game_over_background = loadImage("game_over.png");
-    gameOverText = new UI(width/2, height/2+200, "You made it to the planet " + mainGame.travel.currentPlanet, color(255));
+    gameOverText = new UI(width/2, height/2+200, color(255));
   }
   
   void draw() {

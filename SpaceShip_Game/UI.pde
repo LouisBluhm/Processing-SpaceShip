@@ -3,7 +3,6 @@ class UI {
   //PFont font;
 
   float x, y;
-  String title;
   color c;
   PImage panel, panel2, panel2hover;
   PImage inv;
@@ -19,7 +18,7 @@ class UI {
 
   PFont font, font2;
 
-  UI(float _x, float _y, String _title, color _c) {
+  UI(float _x, float _y, color _c) {
 
     font = loadFont("SharpRetro-48.vlw");
     font2 = loadFont("pixelmix-bold-14.vlw");
@@ -29,7 +28,6 @@ class UI {
 
     x = _x;
     y = _y;
-    title = _title;
     c = _c;
 
     //font = createFont("KenPixel", 32);
@@ -49,13 +47,21 @@ class UI {
     travelHover = loadImage("travel_hover.png");
   }
 
-  void draw() {
+  void draw(String title) {
     textFont(font, 140);
     fill(c);
     textAlign(0);
     textSize(19);
     text(title, x, y);
-    //textFont(font);
+  }
+  
+  void hoverPanel(float hoverX, float hoverY, String message, String message2, String message3, float hoverWidth, float hoverHeight) {
+    fill(31, 31, 31);
+    stroke(255);
+    rect(hoverX, hoverY, hoverWidth, hoverHeight);
+    text_string(hoverX+5, hoverY+20, message, 10, color(255), LEFT, font2);
+    text_string(hoverX+5, hoverY+45, message2, 10, color(255), LEFT, font2);
+    text_string(hoverX+5, hoverY+70, message3, 10, color(255), LEFT, font2);
   }
 
   void bar(float barX, float barY, float barWidth, float barHeight, color barColor, float barWidthTotal) {
@@ -68,14 +74,12 @@ class UI {
     rect(barX, barY, barWidth, barHeight);
   }
 
-  void modal(float modalX, float modalY, float modalWidth, float modalHeight, color modalColor) {
-    translate(0, 0, 100);
-    rectMode(CENTER);
-    fill(modalColor);
-    stroke(255);
-    //rect(modalX, modalY, modalWidth, modalHeight);
-    //image(panel2, width/2, height/2);
-  }
+  //void modal(float modalX, float modalY, float modalWidth, float modalHeight, color modalColor) {
+  //  translate(0, 0, 100);
+  //  rectMode(CENTER);
+  //  fill(modalColor);
+  //  stroke(255);
+  //}
 
   void text_string(float x, float y, String string, int font_size, color c, int align, PFont text_font) {
     textFont(text_font, 140);
@@ -108,11 +112,13 @@ class UI {
         mainGame.crew.get(i).stat_increase = true;
       }
       if(mainGame.newEvent.crew_gained) {
-        mainGame.crew.add(new Crew(mainGame.crew_names[(int)(Math.random() * mainGame.crew_names.length)], mainGame.crew_roles[(int)(Math.random() * mainGame.crew_roles.length)], mainGame.last_crew_position_x + 60, 10, mainGame.last_crew_position_x + 60, 45));
+        mainGame.crew.add(new Crew(mainGame.crew_member_gained, mainGame.crew_roles[(int)(Math.random() * mainGame.crew_roles.length)], mainGame.last_crew_position_x + 60, 10, mainGame.last_crew_position_x + 60, 45));
         mainGame.last_crew_position_x += 60;
         mainGame.newEvent.crew_gained = false;
        // planetNames[(int)(Math.random() * planetNames.length)];
       }
+      selection.rewind();
+      selection.play();
     }
   }
 

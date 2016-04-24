@@ -1,8 +1,9 @@
 import ddf.minim.*;
 import java.util.Map;
-import processing.opengl.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
-AudioPlayer game_over_music;
+AudioPlayer game_over_music, selection, error, beep, ambient;
 Minim minim;
 
 GameSettings mainGame;
@@ -13,8 +14,9 @@ int currentScreen;
 
 void setup() {
   // Use of 3D Engine
-  size(1440, 900, OPENGL);
-  //size(1440, 900, P3D);
+  // size(1440, 900, OPENGL);
+  size(1440, 900, P3D);
+  surface.setResizable(false);
   
   // Load background images for windows
   backgroundImage = loadImage("background.png");
@@ -37,9 +39,10 @@ void draw() {
   frameRate(60);
   // Display FPS in Window title, useful while debugging
   surface.setTitle("Ventura - alpha 1.2 | " + int(frameRate) + " fps");
-
+  
+  minim.stop();
   drawMainGame();
-
+  
   // Menu selection
   //switch(currentScreen) {
   //case 0: drawMenu1(); break;
@@ -88,16 +91,16 @@ void mousePressed() {
 }
 
 void keyPressed() {
-  //if (key == 'm' && mainGame.audioMuted == false) {
-  //  println("audio muted");
-  //  mainGame.audioMuted = true;
-  //  player.mute();
-  //}
-  //if (key == 'n' && mainGame.audioMuted == true) {
-  //  println("audio unmuted");
-  //  mainGame.audioMuted = false;
-  //  player.unmute();
-  //}
+  if (key == 'm' && mainGame.audioMuted == false) {
+   println("audio muted");
+   mainGame.audioMuted = true;
+   ambient.mute();
+  }
+  if (key == 'n' && mainGame.audioMuted == true) {
+   println("audio unmuted");
+   mainGame.audioMuted = false;
+   ambient.unmute();
+  }
   if (key == 'w') {
     mainGame.inventoryOpen = !mainGame.inventoryOpen;
     mainGame.travelPanelOpen = false;
@@ -109,18 +112,38 @@ void keyPressed() {
   if (key == 'c') {
     mainGame.createPlanet();
   }
+  if (key == 'v') {
+    mainShip.dropship.charging = true;
+    mainShip.dropship.deployed = !mainShip.dropship.deployed;
+    mainShip.dropship.paused = !mainShip.dropship.paused;
+    mainShip.dropship.energyGenerated = 0;
+  }
+  if (key == 'k') {
+    mainGame.shipEnergyCurrent += 100;
+  }
+  if (key == 'j') {
+    mainGame.shipEnergyCurrent -= 100;
+  }
+  if (key == 'g') {
+    mainGame.gameOver();
+  }
 }
 
 void createAudio() {
   minim = new Minim(this);
   //battle music
-  //player = minim.loadFile("music.mp3", 2048);
-  //ambient music
-  //player = minim.loadFile("ambient.mp3", 2048);
-  //menu music
-  game_over_music = minim.loadFile("menu.mp3", 2048);
-  //player.setVolume(0.5);
-  //player.loop();
+  //player = minim.loadFile("assets/audio/music.mp3", 2048);
+  // Ambient music
+  ambient = minim.loadFile("assets/audio/ambient2.mp3", 2048);
+  ambient.loop();
+  // Gameover music
+  game_over_music = minim.loadFile("assets/audio/game_over.mp3", 2048);
+  // Menu selection
+  selection = minim.loadFile("assets/audio/selection.wav", 2048);
+  // Error
+  error = minim.loadFile("assets/audio/error.wav", 2048);
+  // Beep
+  beep = minim.loadFile("assets/audio/beep.wav", 2048);
 }
 
 // Global functions

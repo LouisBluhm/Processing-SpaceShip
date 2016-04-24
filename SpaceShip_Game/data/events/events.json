@@ -13,11 +13,12 @@
 			[
 				{	"response" : [
 						{	"message" : "As you search the ship an old fuel tank explodes. Your boarding crew suffer heavy damage and barely escape."},
-						{	"ship_health" : 0 },
-						{	"crew_health" : -50 },
+						{	"ship_health" : -10 },
+						{	"crew_health" : -40 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -26,7 +27,8 @@
 						{	"crew_health" : 25 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -35,7 +37,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -45,19 +48,20 @@
 			"message" : "You are hailed by a pirate vessel. Their guns are ready to fire.",
 			"responses" : 
 			[
-				{	"response" :  "Prepare to attack" },
+				{	"response" :  "Try and shoot down the pirate vessel" },
 				{	"response" :  "Attempt to flee" },
 				{	"response" :  "Try and talk to the pirate leader" },	
 			],
 			"stats" : 
 			[
 				{	"response" : [
-						{	"message" : "You fire 1 missile but do little damage. You are forced to flee" },
+						{	"message" : "Your weapons malfunction, damaging your ship. You are forced to flee" },
 						{	"ship_health" : -100 },
 						{	"crew_health" : -25 },
-						{	"oxygen": 0 },
+						{	"oxygen": -10 },
 						{	"missiles": -1 },
-						{	"crew_gain": 1 }
+						{	"crew_gain": 0 },
+						{	"energy" : -20 }
 					]
 				}, 
 				{	"response" : [
@@ -66,7 +70,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -75,7 +80,8 @@
 						{	"crew_health" : 10 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -93,11 +99,12 @@
 			[
 				{	"response" : [
 						{	"message" : "The ship escapes safely, taking minor damage" },
-						{	"ship_health" : -20 },
+						{	"ship_health" : -50 },
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -106,7 +113,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 60 }
 					]
 				}, 
 				{	"response" : [
@@ -115,7 +123,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -132,12 +141,13 @@
 			"stats" : 
 			[
 				{	"response" : [
-						{	"message" : "Null" },
+						{	"message" : "You ignore the transmission and discover a damaged ship. You retrieve several energy cells" },
 						{	"ship_health" : 0 },
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 40 }
 					]
 				}, 
 				{	"response" : [
@@ -146,7 +156,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -155,7 +166,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -172,12 +184,13 @@
 			"stats" : 
 			[
 				{	"response" : [
-						{	"message" : "Null" },
+						{	"message" : "You ignore the transmission and continue on your way." },
 						{	"ship_health" : 0 },
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -186,7 +199,8 @@
 						{	"crew_health" : -15 },
 						{	"oxygen": -10 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -195,7 +209,8 @@
 						{	"crew_health" : -25 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -217,7 +232,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -226,7 +242,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -235,7 +252,8 @@
 						{	"crew_health" : -15 },
 						{	"oxygen": 0 },
 						{	"missiles": -1 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -257,7 +275,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -266,7 +285,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -275,7 +295,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": -1 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -297,7 +318,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -306,16 +328,18 @@
 						{	"crew_health" : -35 },
 						{	"oxygen": -100 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
-						{	"message" : "The landing is rough but the ship successfully lands on the largest approaching asteroid." },
+						{	"message" : "The landing is rough but the ship successfully lands on the largest approaching asteroid. The nearby sun charges your ship cells" },
 						{	"ship_health" : 0 },
 						{	"crew_health" : -10 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 60 }
 					]
 				}, 
 			]
@@ -332,12 +356,13 @@
 			"stats" : 
 			[
 				{	"response" : [
-						{	"message" : "All of the crew are gathered on to the ship. Only 1 is alive, who thanks you and joins your crew" },
+						{	"message" : "All of the crew are gathered on to the ship. Only one is alive, who thanks you and offers to join your crew" },
 						{	"ship_health" : 0 },
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 1 }
+						{	"crew_gain": 1 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -346,7 +371,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
@@ -355,7 +381,8 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -374,10 +401,11 @@
 				{	"response" : [
 						{	"message" : "The crew have a wonderfull couple of days windsurfing, getting massages and relaxing by the pool. A holiday maker offers to join your crew, to which you accept" },
 						{	"ship_health" : 0 },
-						{	"crew_health" : 100 },
+						{	"crew_health" : 50 },
 						{	"oxygen": 0 },
-						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"missiles": 2 },
+						{	"crew_gain": 1 },
+						{	"energy" : 40 }
 					]
 				}, 
 				{	"response" : [
@@ -386,16 +414,18 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
-						{	"message" : "The satellite shatters into a thousand pieces" },
+						{	"message" : "The satellite shatters into a thousand pieces. You accidentally kill an engineer who was working on the satellite" },
 						{	"ship_health" : 0 },
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": -1 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -414,19 +444,21 @@
 				{	"response" : [
 						{	"message" : "Upon approaching the monolith the crew are sent on a transcendent voyage through time and space. Upon returning the crew feel enlightened" },
 						{	"ship_health" : -10 },
-						{	"crew_health" : 50 },
+						{	"crew_health" : 25 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
-						{	"message" : "Your weaponary appears to have no effect on it" },
+						{	"message" : "Your weaponary appears to have no effect on it. The ship electronics stutter for a brief second after" },
 						{	"ship_health" : 0 },
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": -1 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : -20 }
 					]
 				}, 
 				{	"response" : [
@@ -435,7 +467,8 @@
 						{	"crew_health" : -25 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 0 }
 					]
 				}, 
 			]
@@ -446,7 +479,7 @@
 			"responses" : 
 			[
 				{	"response" :  "kill ship" },
-				{	"response" :  "gain crew" },
+				{	"response" :  "minus stats *" },
 				{	"response" :  "gain health & missiles" },	
 			],
 			"stats" : 
@@ -457,16 +490,18 @@
 						{	"crew_health" : 0 },
 						{	"oxygen": 0 },
 						{	"missiles": 0 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },
+						{	"energy" : 0 }
 					]
 				}, 
 				{	"response" : [
 						{	"message" : "gain crew" },
-						{	"ship_health" : 0 },
-						{	"crew_health" : 0 },
-						{	"oxygen": 0 },
-						{	"missiles": 0 },
-						{	"crew_gain": 1 }
+						{	"ship_health" : -25 },
+						{	"crew_health" : -25 },
+						{	"oxygen": -25 },
+						{	"missiles": -2 },
+						{	"crew_gain": 1 },
+						{	"energy" : -20 }
 					]
 				}, 
 				{	"response" : [
@@ -475,7 +510,8 @@
 						{	"crew_health" : 50 },
 						{	"oxygen": 50 },
 						{	"missiles": 2 },
-						{	"crew_gain": 0 }
+						{	"crew_gain": 0 },						
+						{	"energy" : 40 }
 					]
 				}, 
 			]
